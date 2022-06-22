@@ -1,0 +1,183 @@
+@import "../../../scss/mixins.scss";
+@import "../../../scss/variables.scss";
+
+
+
+.how {
+    padding-top: 5rem;
+    overflow-x: hidden;
+
+    @media (max-width: $md) {
+        padding-top: 2.5rem;
+    }
+
+    .desc {
+        padding-right: 5rem;
+        @media (max-width: $xl) {
+            padding-right: 2.5rem;
+        }
+        @media (max-width: $md) {
+            padding-right: 0.75rem;
+        }
+
+        h2 {
+            font-size: 3.25rem;
+            margin-bottom: 2.5rem;
+            &::after {
+                width: 35%;
+
+                @media (max-width: $md) {
+                    width: 20%;
+                }
+            }
+            @media (max-width: $lg) {
+                font-size: 2.5rem;
+            }
+            @media (max-width: $md) {
+                font-size: 1.5rem;
+            }
+        }
+
+        p {
+            font-weight: 300;
+            margin-bottom: 1.3rem;
+        }
+
+        @media (max-width: $lg) {
+            margin-bottom: 3.125rem;
+        }
+
+        @media (max-width: $lg) {
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    .guess {
+        padding-left: 5rem;
+        @media (max-width: $xl) {
+            padding-left: 2.5rem;
+        }
+        @media (max-width: $md) {
+            padding-left: 0.75rem;
+        }
+
+        .multiplier {
+            margin-top: 3rem;
+            margin-bottom: 0.3rem;
+            @media (max-width: $lg) {
+                margin-top: 1.5rem;
+            }
+
+            .guess-multip {
+                font-size: 1.5rem;
+
+                @media (max-width: $lg) {
+                    font-size: 1.125rem;
+                }
+                @media (max-width: $md) {
+                    font-size: 1rem;
+                }
+            }
+
+            .guess-input {
+                @include flex(space-between, center);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 0.35rem;
+                height: 4.1rem;
+                @media (max-width: $lg) {
+                    height: 3.1rem;
+                    margin-top: .2rem;
+                    margin-bottom: .2rem;
+                }
+                @media (max-width: $md) {
+                    height: 2.8rem;
+                    padding: 0.3rem;
+                }
+
+                input {
+                    outline: none;
+                    border: none;
+                    background: transparent;
+                    font-size: 1.5rem;
+                    @media (max-width: $md) {
+                        font-size: 1.125rem;
+                    }
+                }
+
+                button {
+                    max-width: fit-content;
+                    height: 100%;
+
+                    padding: inherit;
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+                    @media (max-width: $md) {
+                        padding-left: 1.3rem;
+                        padding-right: 1.3rem;
+                    }
+                }
+            }
+
+            .try {
+                margin-top: 0.315rem;
+                color: $orange;
+            }
+        }
+    }
+
+    .stats {
+        justify-content: space-between;
+        background-color: $med-gray;
+        padding: 3.75rem;
+        margin-top: 7.5rem;
+
+        @media (max-width: $lg) {
+            padding: 2.8rem;
+        }
+
+        @media (max-width: $md) {
+            padding: 1.875rem 1.125rem;
+            margin-top: 3.125rem;
+        }
+
+        .container {
+            @media (max-width: $md) {
+                padding: 0;
+            }
+        }
+
+        .item {
+            @include flex(center, center);
+            flex-direction: column;
+            padding: 0;
+
+            h2 {
+                font-size: 3.5rem;
+                z-index: 10;
+
+                @media (max-width: $lg) {
+                    font-size: 3rem;
+                }
+
+                @media (max-width: $md) {
+                    font-size: 1.25rem;
+                }
+            }
+
+            span {
+                font-size: 1.5rem;
+                white-space: nowrap;
+
+                @media (max-width: $lg) {
+                    font-size: 1.2rem;
+                }
+                @media (max-width: $md) {
+                    font-size: 0.7rem;
+                }
+                @media (max-width: $sm) {
+                    font-size: 0.65rem;
+                }
+            }
+        }
+    }
+}

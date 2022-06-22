@@ -1,0 +1,269 @@
+@import "../../scss/mixins.scss";
+@import "../../scss/variables.scss";
+
+.withdraw {
+    .title {
+        &::after {
+            width: 70%;
+        }
+    }
+    .description {
+        font-weight: 500;
+        margin-bottom: 1rem;
+        @media (max-width: $sm) {
+            font-weight: 300;
+        }
+        span {
+            color: $orange;
+        }
+        .balance-available-withdraw {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .light,
+        .balance-available-withdraw {
+            font-weight: 300;
+            font-size: 1.2rem;
+            span {
+                font-weight: 500;
+                @media (max-width: $sm) {
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    .withdraw-box {
+        background-color: $med-gray;
+        padding: 3.5rem;
+        padding-right: 1rem;
+        @media (max-width: $xl) {
+            padding: 3rem 2rem;
+        }
+        @media (max-width: $sm) {
+            padding: 1.5rem 1.2rem;
+        }
+
+        .inputs {
+            .form-group {
+                margin-bottom: 1rem;
+
+                input {
+                    background-color: transparent;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+            }
+              
+            .dropdown {
+                button {
+                    font-size: 1.15rem;
+                    line-height: 14px;
+                    color: #fff;
+                    width: 100%;
+                    border: 2px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 0;
+                    padding: 1rem;
+                    height: 3.2rem;
+                    @include flex(space-between, center);
+                    @media (max-width: $sm) {
+                        padding: 0.75rem;
+                        font-size: 1rem;
+                        height: 2.9rem;
+                    }
+    
+                    &:focus,
+                    &:hover {
+                        background-color: transparent;
+                        border-color: rgba(255, 255, 255, 0.3);
+                        box-shadow: none;
+                    }
+                }
+    
+                .item-icon {
+                    @include flex(flex-start, center);
+                    img {
+                        margin-right: 1rem;
+                        max-width: 25px;
+                        max-height: 25px;
+                        @media (max-width: $sm) {
+                            max-width: 18px;
+                            max-height: 18px;
+                            margin-right: 0.5rem;
+                        }
+                    }
+                }
+    
+                .dropdown-menu {
+                    background: $background;
+                    min-width: 5rem;
+                    width: 100%;
+                }
+    
+                .dropdown-item {
+                    color: #fff;
+                    font-size: 1.1rem;
+                    padding-top: 1rem;
+                    width: 100%;
+                    @media (max-width: $sm) {
+                        font-size: 0.9rem;
+                        padding-top: 0.7rem;
+                    }
+                    &:hover {
+                        color: #ffffff;
+                        opacity: 0.7;
+                    }
+    
+                    img {
+                        margin-right: 1rem;
+                        max-width: 25px;
+                        max-height: 25px;
+                        @media (max-width: $sm) {
+                            max-width: 18px;
+                            max-height: 18px;
+                            margin-right: 1rem;
+                        }
+                    }
+                }
+            }
+
+            .input-flex {
+                @include flex(space-between, center);
+                @media (max-width: $md) {
+                    @include flex(flex-start, flex-start);
+                    flex-direction: column;
+                }
+
+                .max {
+                    @include flex(center, center);
+                    outline: none;
+                    border: none;
+                    padding: 0 1.125rem;
+                    height: 3.2rem;
+                    width: 100%;
+                    max-width: 25%;
+                    background-color: $success;
+                    color: $dark-gray;
+                    font-weight: 400;
+                    cursor: pointer;
+                    transition: 0.2s ease-in-out;
+                    &:hover {
+                        background-color: rgba($success, 0.9);
+                    }
+                    @media (max-width: $md) {
+                        height: 2.9rem;
+                        max-width: 7rem;
+                        margin-top: 0.8rem;
+                    }
+                }
+            }
+
+            .custom-input {
+                position: relative;
+                width: 100%;
+                margin-right: 1.25rem;
+
+                input {
+                    padding-right: 5.5rem;
+                }
+
+                .icons {
+                    position: absolute;
+                    top: 50%;
+                    right: 0.75rem;
+                    @include flex(flex-start, center);
+                    transform: translateY(-50%);
+                    img {
+                        max-width: 25px;
+                    }
+                }
+            }
+
+            .amount {
+                margin-bottom: 0.5rem;
+            }
+
+            .instant-forgot {
+                @include flex(space-between, center);
+                font-size: 1rem;
+                margin-bottom: 2rem;
+
+                .instant {
+                    .form-check {
+                        @include flex(flex-start, center);
+                        cursor: pointer;
+
+                        label {
+                            margin-left: 0.625rem;
+                            margin-top: 4px;
+                            cursor: pointer;
+                            user-select: none;
+                        }
+                        input {
+                            border-radius: 0px;
+                            max-width: 10px;
+                            max-height: 10px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .forgot {
+                    color: $orange;
+                    text-decoration: underline;
+                }
+            }
+
+            p {
+                span {
+                    font-weight: 600;
+                }
+            }
+        }
+
+        .withdraw {
+            padding: 1.5rem 2rem;
+            @media (max-width: $sm) {
+                padding: 0.5rem;
+                padding-top: 3rem;
+            }
+
+            .line {
+                @include flex(space-between, center);
+                padding-bottom: 1.4rem;
+                font-weight: 300;
+
+                .right {
+                    color: #fff;
+                }
+
+                .active {
+                    color: $orange;
+                    font-size: 1rem;
+                }
+            }
+
+            .total {
+                .total-label {
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    @media (max-width: $sm) {
+                        font-size: 1.1rem;
+                    }
+                }
+                .total-amount {
+                    font-size: 1.3rem;
+                    color: $success;
+                    @media (max-width: $sm) {
+                        font-size: 1.1rem;
+                    }
+                }
+                margin-bottom: 1.5rem;
+            }
+
+            .dashed {
+                margin-bottom: 1.4rem;
+                border-bottom: 0.15rem dashed rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+}

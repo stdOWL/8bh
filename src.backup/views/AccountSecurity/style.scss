@@ -1,0 +1,53 @@
+@import "../../scss/mixins.scss";
+@import "../../scss/variables.scss";
+
+.account-security {
+    .title{
+        &::after {
+            width: 60%;
+        }
+    }
+
+    .tabs {
+        @include flex(flex-start, center);
+
+        .tab {
+            font-size: 1.3rem;
+            padding: 0.6rem 2rem;
+            font-weight: 300;
+            width: fit-content;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            @media (max-width: $lg) {
+                font-size: 1.15rem;
+            }
+            @media (max-width: $sm) {
+                font-size: 1rem;
+            }
+
+            &:hover:not(.active) {
+                background-color: $med-gray;
+            }
+        }
+
+        .active {
+            background-color: $gray;
+            font-weight: 500;
+        }
+    }
+
+    .account-security-box {
+        background-color: $med-gray;
+        padding: 3.5rem;
+        padding-right: 1rem;
+        @media (max-width: $xl) {
+            padding: 3rem 2rem;
+        }
+        @media (max-width: $sm) {
+            padding: 1.5rem 1.2rem;
+        }
+    }
+
+    
+}

@@ -1,0 +1,73 @@
+@import "../../../scss/mixins.scss";
+@import "../../../scss/variables.scss";
+
+
+.login {
+    min-height: max-content;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 !important;
+
+    .modal-body{
+        background-color: $med-gray;
+        padding: 2.2rem;
+    
+        @media (max-width: $lg) {
+            padding: 1.7rem;
+        }
+        @media (max-width: $md) {
+            padding: 1.5rem;
+        }
+        @media (max-width: $sm) {
+            padding: 1rem;
+        }
+    }
+
+
+    .forgot-password {
+        @include flex(flex-end, center);
+        color: $orange;
+        text-decoration: none;
+        padding-top: 1rem;
+        @media (max-width: $lg) {
+            padding-top: 0.8rem;
+        }
+    }
+
+    .custom-input {
+        position: relative;
+        .refresh-icon {
+            position: absolute;
+            height: 100%;
+            @include flex(center, center);
+            top: 0;
+            right: 1.5rem;
+            cursor: pointer;
+        }
+
+        .refresh-active {
+            animation: refresh 2s infinite linear;
+        }
+    }
+
+    .last {
+        padding-bottom: 2.5rem;
+    }
+
+    button {
+        margin-bottom: 1.5rem;
+    }
+
+
+}
+
+.rememberMe{
+    input{
+        margin-top: 0;
+        margin-right: 5px;
+
+    }
+    label{
+        margin-top: 2px;
+    }
+}

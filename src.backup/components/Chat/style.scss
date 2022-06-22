@@ -1,0 +1,81 @@
+@import "../../scss/mixins.scss";
+@import "../../scss/variables.scss";
+
+.chat {
+    max-height: 100vh;
+    height: 100%;
+}
+
+.chat {
+    background-color: $med-gray;
+    position: relative;
+    @include flex(center, center);
+    flex-direction: column;
+
+    .chat-header,
+    .chat-footer {
+        width: 100%;
+        padding: 1.2rem 1.3rem;
+        background-color: $gray;
+        z-index: 999;
+        @media (max-width: $xl) {
+            padding: 0.9rem 0.6rem;
+        }
+    }
+
+
+    .messages {
+        overflow-y: auto;
+        padding: 1.3rem;
+        margin-bottom: 0;
+        height: 100%;
+        width: 100%;
+        
+        // &::-webkit-scrollbar {
+        //     display: none;
+        // }
+
+        .message {
+            margin-bottom: 1.5rem;
+            &:last-child{
+                 margin-bottom: 0;
+            }
+            .info {
+                @include flex(space-between, center);
+                padding-bottom: 0.5rem;
+
+                .username {
+                    font-weight: 500;
+                    font-size: 1.15rem;
+                    @media (max-width: $xl) {
+                        font-size: 1rem;
+                    }
+                }
+                .time {
+                    font-weight: 400;
+                    font-size: 1.1rem;
+                    opacity: 0.4;
+                    @media (max-width: $xl) {
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+
+            .body {
+                background-color: #272728;
+                padding: 0.8rem;
+                border-radius: 10px;
+                color: #bababa;
+                font-weight: 400;
+                font-size: 1rem;
+                @media (max-width: $xl) {
+                    font-size: 0.8rem;
+                }
+                .mention {
+                    color: $orange;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

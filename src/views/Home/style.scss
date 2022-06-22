@@ -1,0 +1,22 @@
+@import "../../scss/mixins.scss";
+@import "../../scss/variables.scss";
+
+.home{
+    min-height: 100vh;
+}
+
+.countdown-progress{
+    span{
+        color: rgb(255, 255, 255);
+    }
+}
+.countdown-lose{
+    span{
+        color: #ec644b;
+    }
+}
+.countdown-win{
+    span{
+        color: #00e676;
+    }
+}

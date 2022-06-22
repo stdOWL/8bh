@@ -1,0 +1,93 @@
+@import "../../../scss/mixins.scss";
+@import "../../../scss/variables.scss";
+
+.home-title {
+    width: 100%;
+    justify-content: center;
+    margin: 0 !important;
+
+    .box {
+        @include flex(center, center);
+        background-color: $med-gray;
+        border-radius: 32px;
+        padding: 1rem 3rem;
+
+        @media (max-width: $lg) {
+            padding: 0.5rem 3rem;
+        }
+        @media (max-width: $md) {
+            border-radius: 15px;
+        }
+
+        h1 {
+            font-weight: 600;
+            transform: rotate(-2deg);
+            font-size: 6rem;
+            position: relative;
+            @media (max-width: $lg) {
+                font-size: 4.5rem;
+            }
+            @media (max-width: $md) {
+                font-size: 2.5rem;
+                margin: 0;
+            }
+
+            img {
+                max-width: 100%;
+                position: absolute;
+                bottom: -10px;
+                right: -7%;
+                transform: rotate(2deg);
+                @media (max-width: $md) {
+                    bottom: 0px;
+                }
+            }
+        }
+    }
+}
+
+.small-box {
+    .box {
+        padding: 0.4rem;
+        h1 {
+            img {
+                bottom: 5px;
+            }
+        }
+    }
+}
+
+.small-title {
+    & > * {
+        position: relative;
+        &::after {
+            content: "";
+            position: absolute;
+            width: 75%;
+            left: -0.5rem;
+            background: linear-gradient(268.28deg, #ff6316 -8.77%, #ff8f16 100%);
+            z-index: -1;
+        }
+    }
+}
+
+.medium {
+    & > * {
+        &::after {
+            height: 1.19rem;
+            bottom: 0.2rem;
+            @media (max-width: $md) {
+                height: 0.5rem;
+            }
+        }
+    }
+}
+
+.small {
+    & > * {
+        &::after {
+            height: 0.5rem;
+            bottom: 0.2rem;
+        }
+    }
+}

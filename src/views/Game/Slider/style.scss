@@ -1,0 +1,100 @@
+@import "../../../scss/mixins.scss";
+@import "../../../scss/variables.scss";
+
+.slider {
+    margin-top: 5.5rem;
+    margin-bottom: 3.5rem;
+    @media (max-width: $md) {
+        margin-top: 4rem;
+        margin-bottom: 3rem;
+    }
+
+    .inner-slider {
+        width: 100%;
+        height: 2.5rem;
+        border-radius: 50rem;
+        background: $gray;
+        position: relative;
+        @media (max-width: $md) {
+            height: 1.875rem;
+        }
+
+        &::after,
+        &::before {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            z-index: 9999;
+            font-size: 1.25rem;
+            @media (max-width: $md) {
+                font-size: 0.9rem;
+                transform: translateY(-45%);
+            }
+        }
+
+        &::before {
+            content: "1";
+            left: 1.2rem;
+            @media (max-width: $md) {
+                left: 0.7rem;
+            }
+        }
+
+        &::after {
+            content: "100";
+            right: 1.2rem;
+            @media (max-width: $md) {
+                right: 0.7rem;
+            }
+        }
+
+        .thumb {
+            outline: none;
+            position: relative;
+            top: -3.5rem;
+            left: 0;
+            cursor: pointer;
+
+            @media (max-width: $sm) {
+                top: -2.2rem;
+            }
+
+            img {
+                @media (max-width: $lg) {
+                    max-width: 37px;
+                }
+                @media (max-width: $sm) {
+                    max-width: 28px;
+                }
+            }
+
+            span {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.2rem;
+                font-weight: 600;
+                padding: 1rem;
+                @media (max-width: $lg) {
+                    font-size: 1.1rem;
+                }
+                @media (max-width: $sm) {
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        .track {
+            position: relative;
+            background: linear-gradient(95.25deg, #ff9900 2.44%, #ff6716 98.67%);
+            border-radius: 50rem;
+            height: 100%;
+        }
+
+        .track.track-1 {
+            background: transparent;
+        }
+    }
+}

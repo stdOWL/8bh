@@ -1,0 +1,41 @@
+@import "../../../scss/mixins.scss";
+@import "../../../scss/variables.scss";
+
+.game-title {
+    padding: 4rem 0;
+    @media (max-width: $md) {
+        padding-top: 1rem;
+        padding-bottom: 3rem;
+    }
+
+    .box {
+        @include flex(center, center);
+        background-color: $med-gray;
+        border-radius: 32px;
+        @media (max-width: $md) {
+            border-radius: 15px;
+        }
+
+        h1 {
+            font-weight: 600;
+            transform: rotate(-2deg);
+            font-size: calc(2.5rem + 4.5vw);
+            position: relative;
+            margin: 1rem 3rem;
+            @media (max-width: $md) {
+                margin: .7rem 3rem;
+            }
+
+            img {
+                max-width: 100%;
+                position: absolute;
+                bottom: 6px;
+                right: -15%;
+                transform: rotate(2deg);
+                @media (max-width: $md) {
+                    bottom: 0px;
+                }
+            }
+        }
+    }
+}

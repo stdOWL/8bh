@@ -1,0 +1,45 @@
+@import "../../../scss/mixins.scss";
+@import "../../../scss/variables.scss";
+
+.chat-footer {
+    .custom-input {
+        position: relative;
+        font-weight: 300;
+        padding: 0 1rem;
+        border-radius: 50rem;
+        background: #272728;
+        color: #bababa;
+        @media (max-width: $xl) {
+            padding: 0 0.8rem;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            background: transparent;
+            padding-right: 2rem;
+            @media (max-width: $xl) {
+                font-size: 0.9rem;
+                height: 3.4rem;
+            }
+            &::placeholder {
+                color: #bababa;
+            }
+        }
+
+        svg {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
+            max-width: 22px;
+            max-height: 22px;
+            cursor: pointer;
+            @media (max-width: $xl) {
+                max-width: 19px;
+                max-height: 19px;
+                right: 1.3rem;
+            }
+        }
+    }
+}
