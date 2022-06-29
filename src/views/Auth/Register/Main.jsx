@@ -76,6 +76,12 @@ export default function Main({ promoCode }) {
                   use of the website provided at&nbsp;8bethub.com&nbsp;("the
                   service").
                 </p>
+                <p>Forbidden Countries</p>
+                <ol start="1" type="1">
+                  <li>
+                    Aruba, Curaçao, Sint Maarten, Cambodia, Bangladesh, Pakistan
+                  </li>
+                </ol>
                 <p>Prohibited users</p>
                 <ol start="1" type="1">
                   <li>
@@ -297,11 +303,12 @@ export default function Main({ promoCode }) {
             accounts to the same address.
   </span>*/}
           </div>
-
-          <div className="form-group">
-            <div className="label">Promo Code</div>
-            <input readonly disabled type="text" value={promoCode} />
-          </div>
+          {promoCode && (
+            <div className="form-group">
+              <div className="label">Promo Code</div>
+              <input readonly disabled type="text" value={promoCode} />
+            </div>
+          )}
 
           <div className="form-group check-terms">
             <Form.Check

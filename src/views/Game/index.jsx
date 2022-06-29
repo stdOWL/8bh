@@ -229,7 +229,8 @@ export default function Game() {
   const countdownFinished = () => {
     console.log("countdownFinished", targetMultiplier, gameResult);
     if (animationEnabled) {
-      if (parseFloat(targetMultiplier) > parseFloat(gameResult)) setCountdownClass("countdown-lose");
+      if (parseFloat(targetMultiplier) > parseFloat(gameResult))
+        setCountdownClass("countdown-lose");
       else setCountdownClass("countdown-win");
 
       setBusy(false);
@@ -247,10 +248,22 @@ export default function Game() {
     onStart: () => countdownStarted(),
     onEnd: () => countdownFinished(),
   });
-  const { LOGGED_IN, selectedAssetCode } = useSelector(({ user }) => ({
-    LOGGED_IN: !!user,
-    selectedAssetCode: user ? user.selectedAssetCode : null,
-  }));
+  const { LOGGED_IN, selectedAssetCode, currencies } = useSelector(
+    ({ user }) => ({
+      LOGGED_IN: !!user,
+      selectedAssetCode: user ? user.selectedAssetCode : null,
+      currencies: user ? user.balances : [],
+    })
+  );
+
+  useEffect(() => {
+    let selectedCurrency = currencies.find((s) => s.code === selectedAssetCode);
+    if (selectedCurrency) {
+      console.log('wager',wager)
+      setWager(parseFloat(selectedCurrency.min_wager));
+    }
+  }, [selectedAssetCode]);
+
   const showSeedManagment = () => {
     setOpen(true);
   };
@@ -335,7 +348,9 @@ export default function Game() {
         });
 
         if (response.error) {
-          notify.error(response.error);
+          if (response.error === "NOT_ENOUGH_BALANCE")
+            notify.error("Your balance is not enough, please deposit.");
+          else notify.error(response.error);
           return;
         }
 
@@ -407,7 +422,8 @@ export default function Game() {
   useEffect(() => {
     start();
     if (!animationEnabled) {
-      if (parseFloat(targetMultiplier) > parseFloat(gameResult)) setCountdownClass("countdown-lose");
+      if (parseFloat(targetMultiplier) > parseFloat(gameResult))
+        setCountdownClass("countdown-lose");
       else setCountdownClass("countdown-win");
     }
   }, [gameResult]);
@@ -602,7 +618,7 @@ export default function Game() {
                         if (config.type === "text")
                           return (
                             <TextField
-                            focused
+                              focused
                               sx={{ width: 1, mb: 2 }}
                               inputProps={{
                                 style: {
@@ -877,7 +893,7 @@ export default function Game() {
                     <div className="label">Max Profit</div>
                     <div className="label values profit">
                       <img src={btcIcon} />
-                      19.28
+                      1.928
                     </div>
                   </Col>
                 </Row>

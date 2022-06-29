@@ -102,6 +102,6 @@ export default function How() {
 const stats = [
   { label: "₿2", text: "BANKROLL" },
   { label: "1%", text: "HOUSE EDGE" },
-  { label: "$20000", text: "MAX PROFIT" },
+  { label: "₿1.928", text: "MAX PROFIT" },
   { label: "$5000", text: "MAX BET" },
 ];

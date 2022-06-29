@@ -7,6 +7,10 @@ import { store, token } from "./util";
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from "react-redux";
+import ReactGA from "react-ga4";
+const TRACKING_ID = "G-LH1NN7YJSL";
+ReactGA.initialize(TRACKING_ID);
+ReactGA.send("pageview");
 
 export default function App() {
   const { pathname } = useLocation()
@@ -19,6 +23,10 @@ export default function App() {
     document.title = `8BetHub | ${page || 'Home'}`
 
   }, [pathname])
+  useEffect(() => {
+    ReactGA.send("pageview");
+    //pageview(window.location.pathname + window.location.search);
+  }, []);
 
 
   return (
@@ -41,7 +49,7 @@ export default function App() {
 
 const routes = [
   { id: 0, nav: true, path: '/', element: <Home /> },
-  
+
   { id: 1, nav: false, path: '/AccountSecurity', element: <AccountSecurity /> },
   { id: 2, nav: false, path: '/Deposit', element: <Deposit /> },
   { id: 3, nav: false, path: '/Withdraw', element: <Withdraw /> },

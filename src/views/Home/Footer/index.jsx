@@ -22,7 +22,7 @@ export default function Footer() {
           Check out our
           <Link to="/"> FAQ </Link>
           and our
-          <Link to="/"> bitcointalk.org thread </Link>
+          <a taret="_blank" href="https://bitcointalk.org/index.php?topic=5403811.0"> bitcointalk.org thread </a>
           or
           <Link to="/"> Reach out to us! </Link>
         </p>

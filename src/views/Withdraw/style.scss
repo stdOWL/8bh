@@ -47,7 +47,8 @@
 
         .inputs {
             .form-group {
-                margin-bottom: 1rem;
+                margin-bottom: 0.5rem;
+                padding-bottom: 0.5rem;
 
                 input {
                     background-color: transparent;
@@ -263,6 +264,33 @@
             .dashed {
                 margin-bottom: 1.4rem;
                 border-bottom: 0.15rem dashed rgba(255, 255, 255, 0.2);
+            }
+        }
+    }
+
+    .network {
+        margin-top: 1.5rem;
+        .network-items {
+            @include flex(flex-start, center);
+
+            .network-item {
+                background-color: $dark-gray;
+                text-align: center;
+                font-size: 1.2rem;
+                padding: 0.5rem 2rem;
+                margin-right: 1rem;
+                border: 1px solid transparent;
+                cursor: pointer;
+                border-width: 1px;
+                border-style: solid;
+
+                &:hover {
+                    border-image: linear-gradient(to right, #ff9900, #ff6716) 1;
+                }
+            }
+
+            .active {
+                border-image: linear-gradient(to right, #ff9900, #ff6716) 1;
             }
         }
     }

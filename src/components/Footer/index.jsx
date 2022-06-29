@@ -3,16 +3,16 @@ import { Row, Col, Container, Image } from "react-bootstrap";
 import dicelogo from "../../assets/imgs/logo/icon.png";
 import "./style.scss";
 import FAQComponent from "./faqs";
-import TOSComponent from "./tos";
+import PagesComponent from "./pages";
 
 export default function Footer() {
   const [FAQopen, setFAQopen] = React.useState(false);
-  const [TOSopen, setTOSopen] = React.useState(false);
+  const [PageName, setPageName] = React.useState(null);
 
   return (
     <div className="footer">
       <FAQComponent open={FAQopen} setOpen={setFAQopen} />
-      <TOSComponent open={TOSopen} setOpen={setTOSopen} />
+      <PagesComponent PageName={PageName} setPageName={setPageName} />
       <Row className="justify-content-center">
         <Col md={11}>
           <Container>
@@ -23,7 +23,7 @@ export default function Footer() {
                     <Image src={dicelogo} alrt="dice logo" />
                     <p>Next-Gen Dice game</p>
                     <div className="links">
-                      <a href="#">bitcointalk.org</a>
+                      <a href="https://bitcointalk.org/index.php?topic=5403811.0" target="_blank" rel="noreferrer">bitcointalk.org</a>
                       <a
                         target="_blank"
                         href="https://twitter.com/8bethub"
@@ -69,10 +69,10 @@ export default function Footer() {
                       >
                         Support
                       </a>
-                      <a onClick={() => {
-                          window.Tawk_API && window.Tawk_API.popup();
-                        }}>Contact us</a>
-                      <a onClick={() => setTOSopen(true)}>Terms of Service</a>
+                      <a href="mailto:8bethub@gmail.com">Contact us</a>
+                      <a onClick={() => setPageName('TOS')}>Terms of Service</a>
+                      <a onClick={() => setPageName('BTOS')}>Bonus Terms Conditions</a>
+                      
                     </div>
                   </div>
                 </Row>

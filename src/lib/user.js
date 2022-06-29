@@ -23,6 +23,31 @@ export const getAccount = async () => {
     try {
         const { balances, user } = await api('/account/get');
         user.balances = balances;
+        ;
+        if (typeof window.Tawk_API.setAttributes !== "undefined") {
+            window.Tawk_API.setAttributes(
+                {
+                    name: user.username
+                },
+                function (err) { }
+            );
+
+        } else {
+            window.Tawk_API.onLoad = function () {
+                console.log('onload',user.username,user.email);
+                window.Tawk_API.setAttributes(
+                    {
+                        name: user.username
+                    },
+                    function (err) {
+                    }
+                );
+            };
+
+
+        }
+
+
         store.dispatch(setUser(user))
         return user
     } catch (err) {

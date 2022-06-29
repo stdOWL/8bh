@@ -45,11 +45,7 @@ export default function Main() {
 
         const r = await getAccount();
         if (r) {
-          let Tawk_API = window.Tawk_API || {};
-          Tawk_API.visitor = {
-            name: user.username,
-            email: user.email,
-          };
+          
 
           setLoginModalShow(false);
           defaultSocket.subscribeUser(r.stream_token);

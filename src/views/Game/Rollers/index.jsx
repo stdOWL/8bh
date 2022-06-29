@@ -141,7 +141,7 @@ export default function Rollers() {
               <tbody>
                 {filteredBets().map((roller, index) => (
                   <tr key={index}>
-                    <td class="playerLink" onClick={() => navigate(`/Player/${roller.username}`)}>{roller.username}</td>
+                    <td className="playerLink" onClick={() => navigate(`/Player/${roller.username}`)}>{roller.username}</td>
                     <td className="value">
                       {parseFloat(roller.wager).toFixed(4)}
                       <Image

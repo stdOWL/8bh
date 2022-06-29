@@ -9,6 +9,7 @@ import bnbIcon from "../../assets/imgs/bnb.png";
 import "./style.scss";
 import { useSelector } from "react-redux";
 import { notify, api } from "../../util";
+import Alert from "@mui/material/Alert";
 
 export default function Withdraw() {
   const { LOGGED_IN, name, depositCurrencies } = useSelector(({ user }) => ({
@@ -17,12 +18,22 @@ export default function Withdraw() {
     depositCurrencies: user ? user.balances : [],
   }));
   const [depositCurrency, setDepositCurrency] = useState(null);
-  const [amount, setAmount] = useState(null);
-  const [address, setAddress] = useState(null);
+  const [selectedNetwork, setSelectedNetwork] = useState(null);
+
+  const [amount, setAmount] = useState('');
+  const [address, setAddress] = useState('');
 
   useEffect(() => {
-    if (LOGGED_IN && depositCurrencies.length > 0 && !depositCurrency) {
-      setDepositCurrency(depositCurrencies[0]);
+    if (LOGGED_IN && depositCurrencies.length > 0) {
+      if (!depositCurrency) {
+        setDepositCurrency(depositCurrencies[0]);
+        setSelectedNetwork(depositCurrencies[0].networks[0]);
+      } else {
+        
+        if (depositCurrency.networks.length > 0)
+          setSelectedNetwork(depositCurrency.networks[0]);
+        else setSelectedNetwork(null);
+      }
     }
   }, [depositCurrency, LOGGED_IN, depositCurrencies]);
   const handleChange = ({ target: { name, value } }) => {
@@ -37,7 +48,7 @@ export default function Withdraw() {
         assetCode: depositCurrency.code,
       });
       if (response.result === "OK") {
-        notify.success('Withdraw successfully created!');
+        notify.success("Withdraw successfully created!");
       }
     } catch (err) {
       notify.error(err.response ? err.response.data : err.message);
@@ -102,6 +113,28 @@ export default function Withdraw() {
                     ))}
                   </Dropdown.Menu>
                 </Dropdown>
+              </div>
+              <div className="form-group">
+                {selectedNetwork && (
+                  <>
+                    <div className="network">
+                      <div className="label">Choose Network</div>
+                      <div className="network-items">
+                        {depositCurrency.networks.map((item, index) => (
+                          <div
+                            key={index}
+                            className={`network-item ${
+                              selectedNetwork === item ? "active" : null
+                            }`}
+                            onClick={() => setSelectedNetwork(item)}
+                          >
+                            {item.name}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
               <div className="form-group">
                 <div className="label">Address</div>
@@ -180,6 +213,12 @@ export default function Withdraw() {
                   {parseFloat(depositCurrency?.balance).toFixed(4)}{" "}
                   {depositCurrency?.name}
                 </span>
+              </div>
+              <div style={{ paddingBottom: "1rem" }}>
+                <Alert severity="info">
+                  Minimum Withdraw: {parseFloat(depositCurrency.min_withdraw)}{" "}
+                  {depositCurrency.code.toUpperCase()}
+                </Alert>
               </div>
               <button onClick={sendWithdrawRequest} className="primary-btn">
                 Withdraw

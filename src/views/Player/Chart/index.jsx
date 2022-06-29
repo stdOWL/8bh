@@ -166,28 +166,28 @@ export default function Chart({ bets }) {
     <div className="chart">
       <div
         ref={tooltipRef}
-        class="custom-tooltip"
+        className="custom-tooltip"
         style={{ opacity: 0, left: "0", top: "0" }}
       >
         {activeTooltip && (
           <div>
-            <div class="tooltip-header">
-              <b class="bet-title">Bet</b>
-              <span class="mutedId">#{activeTooltip.id}</span>
+            <div className="tooltip-header">
+              <b className="bet-title">Bet</b>
+              <span className="mutedId">#{activeTooltip.id}</span>
             </div>
-            <div class="tooltip-stats">
+            <div className="tooltip-stats">
               {tooltipLoading ? (
                 <CircularProgress />
               ) : (
                 <>
-                  <div class="items-row">
+                  <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Played</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
                       {" "}
                       <Moment date={activeTooltip.createdAt} fromNow />
                     </span>
                   </div>
-                  <div class="items-row">
+                  <div className="items-row">
                     <span style={{ fontWeight: 300 }}>
                       Wager({activeTooltip.asset_code.toUpperCase()})
                     </span>
@@ -198,7 +198,7 @@ export default function Chart({ bets }) {
                       })}$
                     </span>
                   </div>
-                  <div class="items-row">
+                  <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Target</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
                       {(activeTooltip.target / 100).toLocaleString("en", {
@@ -207,7 +207,7 @@ export default function Chart({ bets }) {
                       })}
                     </span>
                   </div>
-                  <div class="items-row">
+                  <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Multiplier</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
                       {(activeTooltip.multiplier / 100).toLocaleString("en", {
@@ -216,7 +216,7 @@ export default function Chart({ bets }) {
                       })}
                     </span>
                   </div>
-                  <div class="items-row">
+                  <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Bet Profit</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
                     {parseFloat(activeTooltip.profit_usd).toLocaleString("en", {
@@ -226,7 +226,7 @@ export default function Chart({ bets }) {
 
                     </span>
                   </div>
-                  <div class="items-row">
+                  <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Net Profit</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
                     {parseFloat(activeTooltip.netProfit_usd).toLocaleString("en", {
