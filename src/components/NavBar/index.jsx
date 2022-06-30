@@ -181,22 +181,28 @@ export default function NavBar(a) {
                       <Dropdown.Item
                         key={0}
                         onClick={() => navigate("/AccountSecurity")}
-                      >Account Security</Dropdown.Item>
+                      >
+                        Account Security
+                      </Dropdown.Item>
                       <Dropdown.Item
                         key={1}
                         onClick={() => navigate("/Deposit")}
-                      >Deposit</Dropdown.Item>
+                      >
+                        Deposit
+                      </Dropdown.Item>
                       <Dropdown.Item
                         key={2}
                         onClick={() => navigate("/Withdraw")}
-                      >Withdraw</Dropdown.Item>
+                      >
+                        Withdraw
+                      </Dropdown.Item>
                       <Dropdown.Item
                         key={3}
                         onClick={() => navigate(`/Player/${name}`)}
-                      >Player</Dropdown.Item>
-                      
-                      
-                     
+                      >
+                        Player
+                      </Dropdown.Item>
+
                       <Dropdown.Item key="logoutnav">
                         <button className="logoutbtn" onClick={logout}>
                           Logout
@@ -208,7 +214,7 @@ export default function NavBar(a) {
               </>
             ) : (
               <>
-                <li className="">
+                <li className="d-none d-lg-flex">
                   <button
                     onClick={() => {
                       showLoginModal(true);

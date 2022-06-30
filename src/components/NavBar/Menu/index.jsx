@@ -4,15 +4,15 @@ import "./style.scss";
 import { useSelector } from "react-redux";
 import { setLogout, updateSelectedAssetCode } from "../../../lib/user";
 import { defaultSocket } from "../../../lib/sockets";
-
-
+import { useLayout } from "../../Layout/context/layoutContext";
 export default function Menu({ open }) {
-  const { LOGGED_IN, name,stream_token } = useSelector(({ user }) => ({
+  const { LOGGED_IN, name, stream_token } = useSelector(({ user }) => ({
     LOGGED_IN: !!user,
     name: user ? user.username : null,
     stream_token: user ? user.stream_token : null,
   }));
-
+  const { setRegisterModalShow, setLoginModalShow, loginModalShow } =
+    useLayout();
   const navigate = useNavigate();
   const [openLinks, setOpenLinks] = useState(false);
   const logout = () => {
@@ -44,21 +44,21 @@ export default function Menu({ open }) {
 
             {openLinks ? (
               <ul className="list-group links-list-group">
-                 <li onClick={() => navigate('/AccountSecurity')} key={0}>
-                 Account Security
-                  </li>
-                  <li onClick={() => navigate('/Deposit')} key={1}>
-                    Deposit
-                  </li>
-                  <li onClick={() => navigate('/Withdraw')} key={2}>
+                <li onClick={() => navigate("/AccountSecurity")} key={0}>
+                  Account Security
+                </li>
+                <li onClick={() => navigate("/Deposit")} key={1}>
+                  Deposit
+                </li>
+                <li onClick={() => navigate("/Withdraw")} key={2}>
                   Withdraw
-                  </li>
-                  <li onClick={() => navigate('/Game')} key={3}>
-                    Game
-                  </li>
-                  <li onClick={() => navigate(`/Player/${name}`)} key={4}>
-                    Player
-                  </li>
+                </li>
+                <li onClick={() => navigate("/Game")} key={3}>
+                  Game
+                </li>
+                <li onClick={() => navigate(`/Player/${name}`)} key={4}>
+                  Player
+                </li>
               </ul>
             ) : null}
           </li>
@@ -80,12 +80,17 @@ export default function Menu({ open }) {
             </svg>
           </button>
         </li>
+        <li>
+          <button onClick={() => setLoginModalShow(true)}>Login</button>
+        </li>
+        <li>
+          <button onClick={() => setRegisterModalShow(true)}>Register</button>
+        </li>
         {LOGGED_IN && (
           <li className="logout">
             <button onClick={logout}>Logout</button>
           </li>
         )}
-        
       </ul>
     </div>
   );
