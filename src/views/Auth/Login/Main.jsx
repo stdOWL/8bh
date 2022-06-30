@@ -103,7 +103,7 @@ export default function Main() {
                 onInput={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
               />
-              {/*<div style={{ marginTop: "0.5rem" }}>
+              {<div style={{ marginTop: "0.5rem" }}>
                 <div className="rememberMe">
                   <Form.Check
                     id="instant-withdrawal-check"
@@ -111,7 +111,7 @@ export default function Main() {
                   />
                 </div>
               </div>
-        */}
+        }
               <Link to="/RessetPassword" className="forgot-password">
                 <span>Forgot your password?</span>
               </Link>

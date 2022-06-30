@@ -185,7 +185,7 @@
                         
                         return this.sendCommand("bet", {
                             wager: e,
-                            target: Math.round(100 * t)
+                            target: t
                         }).then((e => {
                             const {
                                 balance: t,

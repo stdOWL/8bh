@@ -37,7 +37,10 @@ export default function ScriptRunner({ code }) {
           target,
           asset_code: selectedAssetCode,
         });
-        sendResponse(requestId, response.bet);
+        if(response.error){
+          setLogs(logs + "\n" + response.error);
+        }else
+          sendResponse(requestId, response.bet);
       } catch (err) {
         notify.error(err.response ? err.response.data : err.message);
       }
