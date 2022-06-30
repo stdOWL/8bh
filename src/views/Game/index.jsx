@@ -259,7 +259,7 @@ export default function Game() {
   useEffect(() => {
     let selectedCurrency = currencies.find((s) => s.code === selectedAssetCode);
     if (selectedCurrency) {
-      console.log('wager',wager)
+      console.log("wager", wager);
       setWager(parseFloat(selectedCurrency.min_wager));
     }
   }, [selectedAssetCode]);
@@ -388,6 +388,8 @@ export default function Game() {
       let key = keys[i];
       let config = configValues[key];
       config.key = key;
+      if (config.type === "multiplier" || config.type === "balance")
+        config.value = (parseFloat(config.value) / 100).toFixed(2);
       configsParsed.push(config);
     }
 
@@ -636,6 +638,7 @@ export default function Game() {
                         if (config.type === "multiplier")
                           return (
                             <TextField
+                            focused
                               sx={{ width: 1, mb: 2 }}
                               id="outlined-name"
                               type="number"
@@ -653,6 +656,30 @@ export default function Game() {
                                 updateConfig(config.key, target.value)
                               }
                             />
+                          );
+                        if (config.type === "balance")
+                          return (
+                            <div className="form-group">
+                            <div className="label">{config.label}</div>
+                            <div className="custom-input">
+                              <input
+                                type="number"
+                                value={config.value}
+                                onChange={({ target }) => updateConfig(config.key, target.value)}
+                              />
+                              <div className="icons">
+                                <Image
+                                  src={
+                                    "/currencies/" +
+                                    (selectedAssetCode || "btc") +
+                                    ".png"
+                                  }
+                                  alt="selectedAssetCode"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                            
                           );
                         if (config.type === "checkbox")
                           return (

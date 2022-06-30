@@ -53,9 +53,19 @@ export default function Rollers() {
   const formatMultiplier = (e) => {
     return (parseInt(e) / 100).toLocaleString("en", {
       minimumSignificantDigits: 3,
-      maximumSignificantDigits: 5,
+      maximumSignificantDigits: 10,
     });
   };
+  const formatMoney = (e) => {
+    let money = parseFloat(e).toLocaleString("en", {
+      minimumFractionDigits:2,
+      maximumFractionDigits:8
+    });
+
+
+    return money;
+  };
+  
 
   const filteredBets = () => {
     if (showRollers === "all") return allBets;
@@ -143,7 +153,7 @@ export default function Rollers() {
                   <tr key={index}>
                     <td className="playerLink" onClick={() => navigate(`/Player/${roller.username}`)}>{roller.username}</td>
                     <td className="value">
-                      {parseFloat(roller.wager).toFixed(4)}
+                      {formatMoney(roller.wager)}
                       <Image
                         src={"/currencies/" + roller.asset_code + ".png"}
                         alt={roller.asset_code}
@@ -151,9 +161,13 @@ export default function Rollers() {
                     </td>
                     <td>{formatMultiplier(roller.target)}x</td>
                     <td>{formatMultiplier(roller.multiplier)}x</td>
-                    <td className={`text-${roller.isWin ? "profit" : "loss"}`}>
+                    <td className={`text-${roller.isWin ? "profit" : "loss"} value`}>
                       {parseFloat(roller.profit) < 0 ? "" : "+"}
-                      {parseFloat(roller.profit).toFixed(4)}
+                      {formatMoney(roller.profit)}
+                      <Image
+                        src={"/currencies/" + roller.asset_code + ".png"}
+                        alt={roller.asset_code}
+                      />
                     </td>
                   </tr>
                 ))}
