@@ -19,6 +19,7 @@ import { api, notify } from "../../util";
 //import CountUp from "react-countup";
 import { useCountUp } from "react-countup";
 import { useSelector } from "react-redux";
+import Loader from '../../components/Loader'
 import WarningIcon from "@mui/icons-material/Warning";
 import CasinoIcon from "@mui/icons-material/Casino";
 import CodeEditor from "@uiw/react-textarea-code-editor";
@@ -478,6 +479,7 @@ export default function Game() {
 
   return (
     <div className="game-container">
+      <Loader show={true} />
       {
         <Dialog
           fullWidth={fullWidth}
