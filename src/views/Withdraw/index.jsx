@@ -10,7 +10,7 @@ import "./style.scss";
 import { useSelector } from "react-redux";
 import { notify, api } from "../../util";
 import Alert from "@mui/material/Alert";
-
+import Loader from '../../components/Loader'
 export default function Withdraw() {
   const { LOGGED_IN, name, depositCurrencies } = useSelector(({ user }) => ({
     LOGGED_IN: !!user,
@@ -59,6 +59,7 @@ export default function Withdraw() {
     LOGGED_IN &&
     depositCurrency && (
       <div className="withdraw">
+        <Loader show={true} />
         <Layout title="Withdraw">
           <div className="description">
             <p>

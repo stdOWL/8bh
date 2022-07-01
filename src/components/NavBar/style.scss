@@ -2,346 +2,351 @@
 @import "../../scss/variables.scss";
 
 .navbar-container {
-    position: relative;
-    z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-bar {
-    //padding: 1.5rem 3rem !important;
-    width: 97%;
-    margin: auto;
-    background-color: $background;
-    border-bottom: 1px solid rgba(#ffffff, 0.1);
-    @include flex(space-between, center);
+  //padding: 1.5rem 3rem !important;
+  width: 97%;
+  margin: auto;
+  background-color: $background;
+  border-bottom: 1px solid rgba(#ffffff, 0.1);
+  @include flex(space-between, center);
+  @media (max-width: $sm) {
+    //padding: 1rem !important;
+    //padding-top: 1.5rem !important;
+    width: 100%;
+    border: none;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+    padding-top: 1rem !important;
+  }
+
+  .open-nav {
+    cursor: pointer;
+  }
+
+  .dicelogo {
+    width: 100%;
+    height: 100%;
+    max-width: 150px;
+    cursor: pointer;
+
     @media (max-width: $sm) {
-        //padding: 1rem !important;
-        //padding-top: 1.5rem !important;
-        width: 100%;
-        border: none;
-        padding-right: 1rem !important;
-        padding-left: 1rem !important;
-        padding-top: 1rem !important;
+      max-width: 90px;
     }
+  }
 
-    .open-nav {
-        cursor: pointer;
-    }
+  .menu {
+    .list {
+      @include flex(flex-start, center);
+      list-style: none;
+      margin: 0 auto;
 
-    .dicelogo {
-        width: 100%;
-        height: 100%;
-        max-width: 150px;
-        cursor: pointer;
-
-
+      .balance {
+        font-size: 1.1rem;
+        line-height: 1.25rem;
         @media (max-width: $sm) {
-            max-width: 90px;
+          font-size: 1rem;
         }
-    }
 
-    .menu {
-        .list {
-            @include flex(flex-start, center);
-            list-style: none;
-            margin: 0 auto;
+        .currency {
+          @include flex(flex-end, center);
+          font-size: 0.9rem;
+          line-height: 0.9rem;
+          margin-top: 0.3rem;
+          @media (max-width: $sm) {
+            font-size: 0.7rem;
+          }
 
-            .balance {
-                font-size: 1.1rem;
-                line-height: 1.25rem;
+          span {
+            color: $light-gray;
+            padding-right: 0.7rem;
+          }
+          .dropdown {
+            button {
+              font-size: 0.9rem;
+              line-height: 0.9rem;
+              color: $orange;
+              @media (max-width: $sm) {
+                font-size: 0.7rem;
+              }
+              &:focus,
+              &:hover {
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+              }
+            }
+
+            .dropdown-menu {
+              background: $background;
+              min-width: 26rem;
+              inset: auto !important;
+              right: 0 !important;
+              color: #fff;
+              border-radius: 1px;
+              border: 1px solid rgba(#ffffff, 0.1);
+              padding: 0;
+
+              @media (max-width: $md) {
+                inset: auto !important;
+                min-width: 100vw;
+              }
+
+              .inner {
+                padding: 1.5rem;
+                @media (max-width: $md) {
+                  padding: 1rem;
+                }
                 @media (max-width: $sm) {
-                    font-size: 1rem;
+                  padding: 0.5rem;
+                }
+              }
+            }
+
+            .dropdown-item {
+              color: $orange;
+              font-size: 0.9rem;
+              padding-top: 0.5rem;
+              &:hover {
+                color: rgba($color: $orange, $alpha: 0.8);
+              }
+            }
+
+            .search {
+              position: relative;
+              background-color: $gray;
+              color: #ffffff;
+              width: 100%;
+              margin-bottom: 1rem;
+
+              input {
+                background: transparent;
+                border: none;
+                outline: none;
+                padding: 1rem;
+                padding-left: 3rem;
+                height: 3rem;
+                color: #ccc;
+
+                &::placeholder {
+                  color: #ccc;
                 }
 
-                .currency {
-                    @include flex(flex-end, center);
-                    font-size: 0.9rem;
-                    line-height: 0.9rem;
-                    margin-top: 0.3rem;
+                &:focus {
+                  padding-left: 1rem;
+                }
+
+                @media (max-width: $sm) {
+                  height: 2.5rem;
+                  padding: 0.8rem;
+                  padding-left: 3rem;
+                  font-size: 0.7rem;
+                }
+              }
+
+              input:focus + svg {
+                display: none;
+              }
+
+              svg {
+                position: absolute;
+                top: 51%;
+                transform: translateY(-50%);
+                left: 1.5rem;
+                width: 17px;
+                color: #ccc;
+
+                @media (max-width: $sm) {
+                  width: 13px;
+                }
+              }
+            }
+
+            .currencies {
+              overflow-y: auto;
+              max-height: 20rem;
+
+              .currency {
+                @include flex(space-between, center);
+                padding: 0.5rem 1.2rem;
+                cursor: pointer;
+                transition: 0.1s ease-in-out;
+                &:nth-child(1) {
+                  padding-top: 0rem;
+                }
+                &:hover {
+                  background-color: $med-gray;
+                }
+
+                span,
+                .right {
+                  color: #ffffff;
+                  opacity: 0.7;
+                  @media (max-width: $sm) {
+                    font-size: 0.7rem;
+                  }
+                }
+
+                .left {
+                  @include flex(flex-start, center);
+                  img {
+                    max-width: 1.6rem;
+                    margin-right: 0.8rem;
                     @media (max-width: $sm) {
-                        font-size: 0.7rem;
+                      max-width: 1.2rem;
+                      margin-right: 0.4rem;
                     }
-
-                    span {
-                        color: $light-gray;
-                        padding-right: 0.7rem;
-                    }
-                    .dropdown {
-                        button {
-                            font-size: 0.9rem;
-                            line-height: 0.9rem;
-                            color: $orange;
-                            @media (max-width: $sm) {
-                                font-size: 0.7rem;
-                            }
-                            &:focus,
-                            &:hover {
-                                background-color: transparent;
-                                border: none;
-                                box-shadow: none;
-                            }
-                        }
-
-                        .dropdown-menu {
-                            background: $background;
-                            min-width: 26rem;
-                            inset: auto !important;
-                            right: 0 !important;
-                            color: #fff;
-                            border-radius: 1px;
-                            border: 1px solid rgba(#ffffff, 0.1);
-                            padding: 0;
-
-                            @media (max-width: $md) {
-                                inset: auto !important;
-                                min-width: 100vw;
-                            }
-
-                            .inner {
-                                padding: 1.5rem;
-                                @media (max-width: $md) {
-                                    padding: 1rem;
-                                }
-                                @media (max-width: $sm) {
-                                    padding: 0.5rem;
-                                }
-                            }
-                        }
-
-                        .dropdown-item {
-                            color: $orange;
-                            font-size: 0.9rem;
-                            padding-top: 0.5rem;
-                            &:hover {
-                                color: rgba($color: $orange, $alpha: 0.8);
-                            }
-                        }
-
-                        .search {
-                            position: relative;
-                            background-color: $gray;
-                            color: #ffffff;
-                            width: 100%;
-                            margin-bottom: 1rem;
-
-                            input {
-                                background: transparent;
-                                border: none;
-                                outline: none;
-                                padding: 1rem;
-                                padding-left: 3rem;
-                                height: 3rem;
-                                color: #ccc;
-
-                                &::placeholder {
-                                    color: #ccc;
-                                }
-
-                                &:focus {
-                                    padding-left: 1rem;
-                                }
-
-                                @media (max-width: $sm) {
-                                    height: 2.5rem;
-                                    padding: 0.8rem;
-                                    padding-left: 3rem;
-                                    font-size: 0.7rem;
-                                }
-                            }
-
-                            input:focus + svg {
-                                display: none;
-                            }
-
-                            svg {
-                                position: absolute;
-                                top: 51%;
-                                transform: translateY(-50%);
-                                left: 1.5rem;
-                                width: 17px;
-                                color: #ccc;
-
-                                @media (max-width: $sm) {
-                                    width: 13px;
-                                }
-                            }
-                        }
-
-                        .currencies {
-                            overflow-y: auto;
-                            max-height: 20rem;
-
-                            .currency {
-                                @include flex(space-between, center);
-                                padding: 0.5rem 1.2rem;
-                                cursor: pointer;
-                                transition: 0.1s ease-in-out;
-                                &:nth-child(1) {
-                                    padding-top: 0rem;
-                                }
-                                &:hover {
-                                    background-color: $med-gray;
-                                }
-
-                                span,
-                                .right {
-                                    color: #ffffff;
-                                    opacity: 0.7;
-                                    @media (max-width: $sm) {
-                                        font-size: 0.7rem;
-                                    }
-                                }
-
-                                .left {
-                                    @include flex(flex-start, center);
-                                    img {
-                                        max-width: 1.6rem;
-                                        margin-right: 0.8rem;
-                                        @media (max-width: $sm) {
-                                            max-width: 1.2rem;
-                                            margin-right: 0.4rem;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .bottom {
-                            @include flex(space-between, center);
-                            background-color: $gray;
-                            padding: 0.7rem 1.3rem;
-                            font-size: 0.9rem;
-                            @media (max-width: $sm) {
-                                padding: 0.7rem 1rem;
-                            }
-
-                            span {
-                                color: #fff;
-                                white-space: nowrap;
-                                @media (max-width: $sm) {
-                                    font-size: 0.7rem;
-                                }
-                            }
-                            .left {
-                                .dolla {
-                                    color: $orange;
-                                    padding: 0;
-
-                                }
-                            }
-
-                            .right {
-                                @include flex(flex-start, center);
-                                span {
-                                    margin-right: 0.5rem;
-                                }
-
-                                .switch {
-                                    position: relative;
-                                    border-radius: 50rem;
-                                    cursor: pointer;
-                                    width: 3.8rem;
-                                    height: 2rem;
-                                    background-color: $background;
-
-                                    @media (max-width: $sm) {
-                                        width: 2.5rem;
-                                        height: 1.4rem;
-                                    }
-
-                                    .toggle {
-                                        position: absolute;
-                                        top: 50%;
-                                        transform: translateY((-50%));
-                                        border-radius: 50rem;
-                                        height: 1.7rem;
-                                        width: 1.7rem;
-                                        @media (max-width: $sm) {
-                                            height: 1.125rem;
-                                            width: 1.125rem;
-                                        }
-                                    }
-
-                                    .toggle-off {
-                                        left: 0.2rem;
-                                        background-color: $light-gray;
-                                    }
-
-                                    .toggle-on {
-                                        right: 0.2rem;
-                                        background-image: linear-gradient(to right, #ff9900, #ff6716);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                  }
                 }
+              }
             }
 
-            .profile {
+            .bottom {
+              @include flex(space-between, center);
+              background-color: $gray;
+              padding: 0.7rem 1.3rem;
+              font-size: 0.9rem;
+              @media (max-width: $sm) {
+                padding: 0.7rem 1rem;
+              }
+
+              span {
+                color: #fff;
+                white-space: nowrap;
+                @media (max-width: $sm) {
+                  font-size: 0.7rem;
+                }
+              }
+              .left {
+                .dolla {
+                  color: $orange;
+                  padding: 0;
+                }
+              }
+
+              .right {
                 @include flex(flex-start, center);
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    max-width: 42px;
-                    max-height: 41px;
-                    margin-right: 0.35rem;
+                span {
+                  margin-right: 0.5rem;
                 }
-                .dropdown {
-                    button {
-                        font-size: 1.1rem;
-                        color: #fff;
-                        &:focus,
-                        &:hover {
-                            background-color: transparent;
-                            border: none;
-                            box-shadow: none;
-                        }
-                    }
 
-                    .dropdown-menu {
-                        background: $med-gray;
-                        min-width: 10rem;
-                    }
+                .switch {
+                  position: relative;
+                  border-radius: 50rem;
+                  cursor: pointer;
+                  width: 3.8rem;
+                  height: 2rem;
+                  background-color: $background;
 
-                    .dropdown-item {
-                        color: #fff;
-                        font-size: 1rem;
-                        padding-top: 0.5rem;
-                        &:hover {
-                            color: rgba($color: #fff, $alpha: 0.8);
-                        }
+                  @media (max-width: $sm) {
+                    width: 2.5rem;
+                    height: 1.4rem;
+                  }
+
+                  .toggle {
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY((-50%));
+                    border-radius: 50rem;
+                    height: 1.7rem;
+                    width: 1.7rem;
+                    @media (max-width: $sm) {
+                      height: 1.125rem;
+                      width: 1.125rem;
                     }
+                  }
+
+                  .toggle-off {
+                    left: 0.2rem;
+                    background-color: $light-gray;
+                  }
+
+                  .toggle-on {
+                    right: 0.2rem;
+                    background-image: linear-gradient(
+                      to right,
+                      #ff9900,
+                      #ff6716
+                    );
+                  }
                 }
+              }
             }
+          }
         }
-        .px-2rem {
-            @media (min-width: 768px) {
-                padding-right: 2rem;
-                padding-left: 2rem;
+      }
+
+      .profile {
+        @include flex(flex-start, center);
+
+        img {
+          width: 100%;
+          height: 100%;
+          max-width: 42px;
+          max-height: 41px;
+          margin-right: 0.35rem;
+        }
+        .dropdown {
+          button {
+            font-size: 1.1rem;
+            color: #fff;
+            &:focus,
+            &:hover {
+              background-color: transparent;
+              border: none;
+              box-shadow: none;
             }
+          }
+
+          .dropdown-menu {
+            background: $med-gray;
+            min-width: 10rem;
+          }
+
+          .dropdown-item {
+            color: #fff;
+            font-size: 1rem;
+            padding-top: 0.5rem;
+            &:hover {
+              color: rgba($color: #fff, $alpha: 0.8);
+            }
+          }
         }
+      }
+    }
+    .px-2rem {
+      @media (min-width: 768px) {
+        padding-right: 2rem;
+        padding-left: 2rem;
+      }
+    }
+  }
+
+  .nav-button {
+    outline: none;
+    border: none;
+    background: transparent;
+    @include flex(center, center);
+    color: #fff;
+    min-width: 10rem;
+    padding: 0.5rem 3rem;
+    font-weight: 500;
+    border-width: 2px;
+    border-style: solid;
+    border-image: linear-gradient(to right, #ff9900, #ff6716) 1;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      background-image: linear-gradient(to right, #ff9900, #ff6716) 1;
     }
 
-    .nav-button {
-        outline: none;
-        border: none;
-        background: transparent;
-        @include flex(center, center);
-        color: #fff;
-        min-width: 10rem;
-        padding: 0.5rem 3rem;
-        font-weight: 500;
-        border-width: 2px;
-        border-style: solid;
-        border-image: linear-gradient(to right, #ff9900, #ff6716) 1;
-        transition: 0.3s ease-in-out;
-        &:hover {
-            background-image: linear-gradient(to right, #ff9900, #ff6716) 1;
-        }
-
-        @media (max-width: $lg) {
-            padding: 0.4rem 2.8rem;
-        }
+    @media (max-width: $lg) {
+      padding: 0.4rem 2.8rem;
     }
+  }
+  .nav-button:hover {
+    background: linear-gradient(268.28deg, #ff6316 -8.77%, #ff8f16 100%);
+  }
 }
