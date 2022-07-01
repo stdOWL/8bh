@@ -63,6 +63,14 @@ export default function Game() {
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
 
+  const [activeHover, setActiveHover] = useState("");
+
+  const mouseIn = (node) => {
+    setActiveHover(node);
+  }
+  const mouseOut = () => {
+    setActiveHover("");
+  }
   const [userSelectedClientSeed, setUserSelectedClientSeed] =
     React.useState("");
 
@@ -614,10 +622,19 @@ export default function Game() {
                   </div>
                 ))}
               </div>
-              <div className="d-flex row-gap pb-2">
-                <img src={SeedManagement} alt="" />
-                <img src={Mute} alt="" />
-                <img src={Refresh} alt="" />
+              <div className="d-flex row-gap pb-2 icon-wrapper">
+                <div className="position-relative pointer">
+                  <div className={`position-absolute hover-tip ${activeHover === "seed"? "block": "d-none"}`}>Seed Managment</div>
+                  <img onMouseEnter={() => mouseIn("seed")} onMouseLeave={mouseOut} src={SeedManagement} alt="" />
+                </div>
+                <div className="position-relative pointer">
+                  <div className={`position-absolute hover-tip ${activeHover === "disable"? "block": "d-none"}`}>Disable Animation</div>
+                  <img onMouseEnter={() => mouseIn("disable")} onMouseLeave={mouseOut} src={Mute} alt="" />
+                </div>
+                <div className="position-relative pointer">
+                  <div className={`position-absolute hover-tip ${activeHover === "reset"? "block": "d-none"}`}>Reset Statistics</div>
+                  <img onMouseEnter={() => mouseIn("reset")} onMouseLeave={mouseOut} src={Refresh} alt="" />
+                </div>
               </div>
             </ScrollContainer>
             {searchPlay === "script" ? (
