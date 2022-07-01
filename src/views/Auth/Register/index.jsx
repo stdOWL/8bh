@@ -24,10 +24,10 @@ export default function Register() {
   }
   return (
     <>
-      <Dialog open={true}>
+      <Dialog open={false}>
         <DialogTitle>Affiliate</DialogTitle>
         <DialogContent>
-          
+
         </DialogContent>
       </Dialog>
       <Modal
