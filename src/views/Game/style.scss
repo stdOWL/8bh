@@ -1,6 +1,11 @@
 @import "../../scss/mixins.scss";
 @import "../../scss/variables.scss";
 
+
+.row-gap {
+    column-gap: 20px;
+}
+
 .game-container {
     .shapes-group {
         background-image: url(../../assets/imgs/Group.png);

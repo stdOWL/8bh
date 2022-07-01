@@ -9,7 +9,9 @@ import Rollers from "./Rollers";
 import Slider from "./Slider";
 import Layout from "../../components/Layout";
 import ScriptRunner from "../../components/ScriptRunner";
-
+import SeedManagement from "../../assets/imgs/seed management.png";
+import Mute from "../../assets/imgs/mute.png";
+import Refresh from "../../assets/imgs/refresh.png";
 import "./style.scss";
 import { useLayout } from "../../components/Layout/context/layoutContext";
 import curvyLine from "../../assets/imgs/curvyLine.svg";
@@ -598,23 +600,31 @@ export default function Game() {
         </Row>
         <div className="game">
           <div className="play-box">
-            <ScrollContainer className="tabs">
-              {playsTabs.map((tab, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleActivePlay(tab.name)}
-                  className={`tab ${searchPlay === tab.name ? "active" : null}`}
-                >
-                  {tab.label}
-                </div>
-              ))}
+            <ScrollContainer className="tabs d-flex justify-content-between">
+              <div className="d-flex">
+                {playsTabs.map((tab, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleActivePlay(tab.name)}
+                    className={`tab ${
+                      searchPlay === tab.name ? "active" : null
+                    }`}
+                  >
+                    {tab.label}
+                  </div>
+                ))}
+              </div>
+              <div className="d-flex row-gap pb-2">
+                <img src={SeedManagement} alt="" />
+                <img src={Mute} alt="" />
+                <img src={Refresh} alt="" />
+              </div>
             </ScrollContainer>
             {searchPlay === "script" ? (
               <div className="game-box">
                 <div className="calcs">
                   <div className="custom-input">
                     <div className="label">Script</div>
-
                     {scriptState === SCRIPT_MODE_START &&
                       configs.map((config, index) => {
                         if (config.type === "text")
@@ -638,7 +648,7 @@ export default function Game() {
                         if (config.type === "multiplier")
                           return (
                             <TextField
-                            focused
+                              focused
                               sx={{ width: 1, mb: 2 }}
                               id="outlined-name"
                               type="number"
@@ -660,26 +670,27 @@ export default function Game() {
                         if (config.type === "balance")
                           return (
                             <div className="form-group">
-                            <div className="label">{config.label}</div>
-                            <div className="custom-input">
-                              <input
-                                type="number"
-                                value={config.value}
-                                onChange={({ target }) => updateConfig(config.key, target.value)}
-                              />
-                              <div className="icons">
-                                <Image
-                                  src={
-                                    "/currencies/" +
-                                    (selectedAssetCode || "btc") +
-                                    ".png"
+                              <div className="label">{config.label}</div>
+                              <div className="custom-input">
+                                <input
+                                  type="number"
+                                  value={config.value}
+                                  onChange={({ target }) =>
+                                    updateConfig(config.key, target.value)
                                   }
-                                  alt="selectedAssetCode"
                                 />
+                                <div className="icons">
+                                  <Image
+                                    src={
+                                      "/currencies/" +
+                                      (selectedAssetCode || "btc") +
+                                      ".png"
+                                    }
+                                    alt="selectedAssetCode"
+                                  />
+                                </div>
                               </div>
                             </div>
-                          </div>
-                            
                           );
                         if (config.type === "checkbox")
                           return (
@@ -719,6 +730,7 @@ export default function Game() {
                     )}
                   </div>
                 </div>
+
                 <Row className="roll">
                   <Col lg={8} xl={6} className="col-10">
                     {scriptState === SCRIPT_MODE_EDIT && (
@@ -803,7 +815,6 @@ export default function Game() {
                     </ButtonGroup>
                   </Row>
                 )}
-
                 <div className="calcs">
                   <div className="form-group">
                     <div className="label">Wager</div>
