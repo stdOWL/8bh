@@ -52,12 +52,11 @@ export default function Chart({ bets }) {
       totalProfit = totalProfit + parseFloat(bets[i].profit_usd);
       bets[i].netProfit_usd = totalProfit;
       X_profits.push(totalProfit);
-      Y_labels.push(i);
+      Y_labels.push(bets[i].betNumber);
     }
     setLabels(Y_labels);
     setChartData(X_profits);
   }, [bets]);
-
 
   const getOrCreateTooltip = (chart) => {
     let tooltipEl = chart.canvas.parentNode.querySelector("div");
@@ -192,10 +191,11 @@ export default function Chart({ bets }) {
                       Wager({activeTooltip.asset_code.toUpperCase()})
                     </span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
-                    {(activeTooltip.wager_usd).toLocaleString("en", {
+                      {activeTooltip.wager_usd.toLocaleString("en", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
-                      })}$
+                      })}
+                      $
                     </span>
                   </div>
                   <div className="items-row">
@@ -219,20 +219,27 @@ export default function Chart({ bets }) {
                   <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Bet Profit</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
-                    {parseFloat(activeTooltip.profit_usd).toLocaleString("en", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}$
-
+                      {parseFloat(activeTooltip.profit_usd).toLocaleString(
+                        "en",
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }
+                      )}
+                      $
                     </span>
                   </div>
                   <div className="items-row">
                     <span style={{ fontWeight: 300 }}>Net Profit</span>
                     <span style={{ color: "rgb(255, 255, 255)" }}>
-                    {parseFloat(activeTooltip.netProfit_usd).toLocaleString("en", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}$
+                      {parseFloat(activeTooltip.netProfit_usd).toLocaleString(
+                        "en",
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }
+                      )}
+                      $
                     </span>
                   </div>
                 </>
@@ -302,12 +309,17 @@ export default function Chart({ bets }) {
                   return;
                 }
 
-                const { offsetLeft: positionX, offsetTop: positionY } =
-                  chart.canvas;
+                const {
+                  offsetLeft: positionX,
+                  offsetTop: positionY,
+                } = chart.canvas;
+                
+                tooltipEl.style.top =
+                    positionY + tooltip.caretY - (tooltipEl.getBoundingClientRect().height) + "px";
 
                 tooltipEl.style.opacity = 1;
                 tooltipEl.style.left = positionX + tooltip.caretX + "px";
-                tooltipEl.style.top = positionY + tooltip.caretY + "px";
+
                 tooltipEl.style.font = tooltip.options.bodyFont.string;
               },
             },
