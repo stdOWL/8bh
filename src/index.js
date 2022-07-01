@@ -26,6 +26,13 @@ const themeOptions = {
       hint: 'rgba(255,255,255,0.5)',
       disabled: 'rgba(255,255,255,0.5)',
       secondary: 'rgba(255,255,255,0.7)',
+      primary: 'rgba(255,255,255,0.5)',
+    },
+    warning: {
+      main: '#ffff00',
+    },
+    error: {
+      main: '#d21c11',
     },
   },
 };

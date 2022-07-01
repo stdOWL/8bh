@@ -8,6 +8,7 @@ import { notify, api } from "../../util";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
+import Pagination from '@mui/material/Pagination';
 
 export default function Player() {
   const params = useParams();
@@ -29,25 +30,33 @@ export default function Player() {
       setAutoupdate(false);
     }, 2000);
   };
+  const [pageCount, setPageCount] = React.useState(0);
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
   useEffect(() => {
     const loadStatistics = async () => {
       try {
-        const statistics = await api.get(`/account/statistics/${username}`);
+        const statistics = await api.get(`/account/statistics/${username}?page=${page}`);
         setTotalBets(statistics.total_count);
         setProfitUsd(statistics.profit_usd);
         setWageredUsd(statistics.wager_usd);
-
-        const bets = statistics.bets;
+        setPageCount(statistics.bets.pages);
+        const bets = statistics.bets.docs;
+        
+        
         let totalProfit = 0;
         
         let AllTimeHigh = -999999999;
         let AllTimeLow =   999999999;
-        
+        const betNumberStart = (parseInt(statistics.bets.page) - 1) * parseInt(statistics.bets.limit);
         for (let i = 0; i < bets.length; i++) {
           totalProfit = totalProfit + parseFloat(bets[i].profit_usd);
           if (totalProfit > AllTimeHigh) AllTimeHigh = totalProfit;
           else if (totalProfit < AllTimeLow) AllTimeLow = totalProfit;
-
+          bets[i].betNumber = betNumberStart + i + 1;
           bets[i].netProfit_usd = totalProfit;
         }
         if(AllTimeHigh !== -999999999) setProfitATH(AllTimeHigh);
@@ -65,7 +74,7 @@ export default function Player() {
       }
     };
     loadStatistics();
-  }, []);
+  }, [page]);
 
   return (
     <div className="player">
@@ -148,6 +157,7 @@ export default function Player() {
             </Col>
           </Row>
           <Chart bets={bets} />
+          <Pagination className="chartPagination" size="large" page={page} onChange={handleChange} count={pageCount} showFirstButton showLastButton  color="primary"/>
         </div>
       </Layout>
     </div>
