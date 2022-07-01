@@ -16,7 +16,7 @@ export default function Header() {
                 </svg>
                 Chat
             </span>
-            <span>
+            {false && (<span>
                 <Dropdown>
                     <Dropdown.Toggle>{language}</Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -32,7 +32,7 @@ export default function Header() {
                         }
                     </Dropdown.Menu>
                 </Dropdown>
-            </span>
+            </span>)}
         </div>
     )
 }
