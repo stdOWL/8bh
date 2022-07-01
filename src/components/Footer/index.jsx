@@ -4,11 +4,17 @@ import dicelogo from "../../assets/imgs/logo/icon.png";
 import "./style.scss";
 import FAQComponent from "./faqs";
 import PagesComponent from "./pages";
+import { useLayout } from "../Layout/context/layoutContext";
 
 export default function Footer() {
   const [FAQopen, setFAQopen] = React.useState(false);
   const [PageName, setPageName] = React.useState(null);
+  const { setRegisterModalShow, setLoginModalShow, loginModalShow } =
+    useLayout();
 
+  const showLoginModal = (e) => {
+    setLoginModalShow(e);
+  };
   return (
     <div className="footer">
       <FAQComponent open={FAQopen} setOpen={setFAQopen} />
@@ -23,7 +29,13 @@ export default function Footer() {
                     <Image src={dicelogo} alrt="dice logo" />
                     <p>Next-Gen Dice game</p>
                     <div className="links">
-                      <a href="https://bitcointalk.org/index.php?topic=5403811.0" target="_blank" rel="noreferrer">bitcointalk.org</a>
+                      <a
+                        href="https://bitcointalk.org/index.php?topic=5403811.0"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        bitcointalk.org
+                      </a>
                       <a
                         target="_blank"
                         href="https://twitter.com/8bethub"
@@ -70,9 +82,10 @@ export default function Footer() {
                         Support
                       </a>
                       <a href="mailto:8bethub@gmail.com">Contact us</a>
-                      <a onClick={() => setPageName('TOS')}>Terms of Service</a>
-                      <a onClick={() => setPageName('BTOS')}>Bonus Terms Conditions</a>
-                      
+                      <a onClick={() => setPageName("TOS")}>Terms of Service</a>
+                      <a onClick={() => setPageName("BTOS")}>
+                        Bonus Terms Conditions
+                      </a>
                     </div>
                   </div>
                 </Row>
@@ -81,6 +94,28 @@ export default function Footer() {
           </Container>
         </Col>
       </Row>
+      <div className="auth-btns-wrapper d-lg-none">
+        <div className="auth-btns">
+          <li className="d-flex d-lg-none">
+            <button
+              onClick={() => {
+                showLoginModal(true);
+              }}
+              className="nav-button"
+            >
+              <span>Login</span>
+            </button>
+          </li>
+          <li className="d-flex d-lg-none px-2rem">
+            <button
+              onClick={() => setRegisterModalShow(true)}
+              className="nav-button"
+            >
+              <span>Register</span>
+            </button>
+          </li>
+        </div>
+      </div>
     </div>
   );
 }
