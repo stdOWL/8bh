@@ -479,7 +479,7 @@ export default function Game() {
 
   return (
     <div className="game-container">
-      <Loader show={true} />
+      
       {
         <Dialog
           fullWidth={fullWidth}

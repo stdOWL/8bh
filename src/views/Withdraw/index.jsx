@@ -59,7 +59,7 @@ export default function Withdraw() {
     LOGGED_IN &&
     depositCurrency && (
       <div className="withdraw">
-        <Loader show={true} />
+       
         <Layout title="Withdraw">
           <div className="description">
             <p>

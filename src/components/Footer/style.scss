@@ -25,9 +25,11 @@
 
 .auth-btns-wrapper {
   background: #1a1a1b;
-  position: absolute;
   height: 100px;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 100000;
 }
 .auth-btns {
   display: flex;
