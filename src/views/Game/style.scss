@@ -27,6 +27,9 @@
   font-weight: 500;
   border-radius: 8px;
 }
+.input-group-append {
+    display: flex;
+}
 .game-container {
   .shapes-group {
     background-image: url(../../assets/imgs/Group.png);

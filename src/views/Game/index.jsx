@@ -916,7 +916,7 @@ export default function Game() {
                       <button
                         disabled={rollError || busy}
                         onClick={rollDice}
-                        className="primary-btn"
+                        className="primary-btn roll-dice"
                       >
                         {rollError ? (
                           <>
@@ -991,11 +991,11 @@ export default function Game() {
 
                 <Row className="roll d-none d-md-flex">
                   <Col lg={8} xl={6} className="col-10">
-                    <div className="input-group-append">
+                    <div className="input-group-append row">
                       <button
                         disabled={rollError || busy}
                         onClick={rollDice}
-                        className="primary-btn"
+                        className="primary-btn roll-dice col-md-8"
                       >
                         {rollError ? (
                           <>
@@ -1012,7 +1012,7 @@ export default function Game() {
                       <button
                         disabled={rollError || busy}
                         onClick={skipBet}
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-secondary col-md-4"
                         type="button"
                       >
                         Skip
