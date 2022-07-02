@@ -7,6 +7,7 @@ import btcIcon from "../../assets/imgs/btc.png";
 import TipModel from '../../components/TipModel'
 import Rollers from "./Rollers";
 import Slider from "./Slider";
+import Title from './Title'
 import Layout from "../../components/Layout";
 import ScriptRunner from "../../components/ScriptRunner";
 import SeedManagement from "../../assets/imgs/seed management.png";
