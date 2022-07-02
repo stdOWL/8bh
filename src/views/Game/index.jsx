@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ScrollContainer from "react-indiana-drag-scroll";
 import ethIcon from "../../assets/imgs/eth.png";
 import btcIcon from "../../assets/imgs/btc.png";
-import Title from "./Title";
+import TipModel from '../../components/TipModel'
 import Rollers from "./Rollers";
 import Slider from "./Slider";
 import Layout from "../../components/Layout";
@@ -639,6 +639,7 @@ export default function Game() {
                 </div>
               </div>
             </ScrollContainer>
+            <TipModel />
             {searchPlay === "script" ? (
               <div className="game-box">
                 <div className="calcs">
