@@ -21,6 +21,7 @@ export default function Main() {
 
   const [TFARequired, setTFARequired] = useState(false);
   const [TFACode, setTFACode] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const [loginUsernameEmail, setLoginUsernameEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,13 +41,12 @@ export default function Main() {
           email: loginUsernameEmail,
           password: password,
           tfaCode: TFACode,
+          rememberMe,
         });
         token.setUser({ tokens, user });
 
         const r = await getAccount();
         if (r) {
-          
-
           setLoginModalShow(false);
           defaultSocket.subscribeUser(r.stream_token);
           navigate("/game");
@@ -103,18 +103,21 @@ export default function Main() {
                 onInput={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
               />
-              {<div style={{ marginTop: "0.5rem" }}>
-                <div className="rememberMe">
-                  <Form.Check
-                    id="instant-withdrawal-check"
-                    label="Remember me"
-                  />
+              <div className="row">
+                <div className="col" style={{ marginTop: "0.5rem" }}>
+                  <div className="rememberMe">
+                    <Form.Check
+                      checked={rememberMe}
+                      onChange={() => setRememberMe((v) => !v)}
+                      id="instant-withdrawal-check"
+                      label="Remember me"
+                    />
+                  </div>
                 </div>
+                <Link to="/RessetPassword" className="col forgot-password">
+                  <span>Forgot your password?</span>
+                </Link>
               </div>
-        }
-              <Link to="/RessetPassword" className="forgot-password">
-                <span>Forgot your password?</span>
-              </Link>
             </div>
           </>
         )}

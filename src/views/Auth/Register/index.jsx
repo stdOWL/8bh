@@ -8,6 +8,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
+import Grid from "@mui/material/Grid";
+import { FormControl, InputLabel, Input } from "@mui/material";
 
 function useQuery() {
   const { search } = useLocation();
@@ -24,10 +26,17 @@ export default function Register() {
   }
   return (
     <>
-      <Dialog open={false}>
+      <Dialog open={false} className="affiliate">
         <DialogTitle>Affiliate</DialogTitle>
         <DialogContent>
-
+          <div class="jss394">
+            <FormControl fullWidth>
+              <InputLabel className="label">Your Referral Link</InputLabel>
+              <Input value="https://roobet.com/?ref=stdowl" fullWidth id="my-input" aria-describedby="my-helper-text" />
+            </FormControl>
+         
+          </div>
+         
         </DialogContent>
       </Dialog>
       <Modal

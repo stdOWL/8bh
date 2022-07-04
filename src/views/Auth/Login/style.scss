@@ -28,9 +28,9 @@
         @include flex(flex-end, center);
         color: $orange;
         text-decoration: none;
-        padding-top: 1rem;
+        padding-top: 0;
         @media (max-width: $lg) {
-            padding-top: 0.8rem;
+            padding-top: 0;
         }
     }
 

@@ -4,7 +4,7 @@ import "./style.scss";
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
 function Index(props) {
-    const [showTipModel, setShowTipModel] = useState(true);
+    const [showTipModel, setShowTipModel] = useState(false);
   return (
     <Modal
     show={showTipModel}

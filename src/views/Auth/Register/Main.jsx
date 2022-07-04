@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { Modal, Form } from "react-bootstrap";
+import { Modal, Form, InputGroup, FormControl, Button } from "react-bootstrap";
 import uniqid from "uniqid";
 import Header from "../Layout/Header";
 import Footer from "../Layout/Footer";
 import { notify, api, token } from "../../../util";
 import { getAccount } from "../../../lib/user";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useLayout } from "../../../components/Layout/context/layoutContext";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 export default function Main({ promoCode }) {
   const navigate = useNavigate();
   const [tosOpened, setTosOpened] = useState(false);
@@ -290,36 +289,39 @@ export default function Main({ promoCode }) {
             <div className="label">
               Password<span className="require-field">*</span>
             </div>
-            <input
+            
+            
+            <InputGroup>
+            <FormControl
+            className="register-inputs"
               type="password"
               placeholder="Enter password"
               value={password}
               onInput={(e) => setPassword(e.target.value)}
             />
-            {/*<span>
-            Your account's email address is used to send you login authorization
-            links, reset your password in case you forget it, and send you
-            important messages about your account. You can register multiple
-            accounts to the same address.
-  </span>*/}
+            <Button className="visible-button" variant="outline-secondary" id="button-addon2">
+              <VisibilityIcon></VisibilityIcon>
+            </Button>
+          </InputGroup>
           </div>
+          
           <div className="form-group">
             <div className="label">
               Confirm Password<span className="require-field">*</span>
             </div>
-            <input
+            <InputGroup>
+            <FormControl
+            className="register-inputs"
               type="password"
               placeholder="Re-enter password"
               value={password}
               onInput={(e) => setPassword(e.target.value)}
             />
-            <VisibilityIcon/>
-            {/*<span>
-            Your account's email address is used to send you login authorization
-            links, reset your password in case you forget it, and send you
-            important messages about your account. You can register multiple
-            accounts to the same address.
-  </span>*/}
+            <Button className="visible-button" variant="outline-secondary" id="button-addon2">
+              <VisibilityIcon></VisibilityIcon>
+            </Button>
+          </InputGroup>
+
           </div>
           {promoCode && (
             <div className="form-group">

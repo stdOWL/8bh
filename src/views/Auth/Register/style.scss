@@ -1,11 +1,59 @@
 @import "../../../scss/mixins.scss";
 @import "../../../scss/variables.scss";
 
+
+.jss394{
+    display: flex;
+    padding: 8px 16px;
+    background: #fff;
+    align-items: center;
+}
+.jss395 {
+    width: 2px;
+    height: 15px;
+    margin: 0px 16px;
+    background: rgba(0, 0, 0, 0.15);
+}
+.affiliate{
+    .label{
+        color: #2f3258;
+        opacity: 0.8;
+        font-weight: 500;
+    }
+    .divider{
+        width: 2px;
+        height: 15px;
+        margin: 0px 16px;
+        background: rgba(0, 0, 0, 0.15);
+    }
+}
+
 .register {
+
+
     min-height: max-content;
     width: 100%;
     margin: 0 auto;
     padding: 0 !important;
+
+    .register-inputs{
+        color: #ffffff;
+        background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .register-inputs::placeholder { 
+        color: #ffffff;
+      }
+      .register-inputs:focus{
+        color: #ffffff;
+        background-color: transparent;
+        border-color: none;
+        box-shadow: none;
+      }
+    .visible-button{
+        margin-bottom: 0;
+        width: auto;
+    }
 
     .modal-body {
         background-color: $med-gray;
