@@ -627,18 +627,16 @@ export default function Game() {
               </div>
               <div className="d-flex row-gap pb-2 icon-wrapper">
                 <div className="position-relative pointer">
-                  <div  className={`position-absolute hover-tip ${activeHover === "seed"? "block": "d-none"}`}>Seed Managment</div>
-                  <img onClick={showSeedManagment} onMouseEnter={() => mouseIn("seed")} onMouseLeave={mouseOut} src={SeedManagement} alt="" />
+                  <div className={`position-absolute hover-tip ${activeHover === "seed"? "block": "d-none"}`}>Seed Managment</div>
+                  <img className="icon" onMouseEnter={() => mouseIn("seed")} onMouseLeave={mouseOut} src={SeedManagement} alt="" />
                 </div>
                 <div className="position-relative pointer">
                   <div className={`position-absolute hover-tip ${activeHover === "disable"? "block": "d-none"}`}>Disable Animation</div>
-                  <img onClick={() => {
-                          setAnimationEnabled(!animationEnabled);
-                        }} onMouseEnter={() => mouseIn("disable")} onMouseLeave={mouseOut} src={Mute} alt="" />
+                  <img className="icon" onMouseEnter={() => mouseIn("disable")} onMouseLeave={mouseOut} src={Mute} alt="" />
                 </div>
                 <div className="position-relative pointer">
                   <div className={`position-absolute hover-tip ${activeHover === "reset"? "block": "d-none"}`}>Reset Statistics</div>
-                  <img onClick={resetStatistics} onMouseEnter={() => mouseIn("reset")} onMouseLeave={mouseOut} src={Refresh} alt="" />
+                  <img className="icon" onMouseEnter={() => mouseIn("reset")} onMouseLeave={mouseOut} src={Refresh} alt="" />
                 </div>
               </div>
             </ScrollContainer>
