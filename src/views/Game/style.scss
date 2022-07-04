@@ -5,10 +5,22 @@
   column-gap: 20px;
 }
 .icon-wrapper {
-    margin-top: 50px;
+  // margin-top: 50px;
+  div {
+    img {
+      @media screen and (max-width: $lg) {
+        width: 60px;
+        height: 60px;
+      }
+      @media screen and(max-width: $md) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
 }
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 .hover-tip {
   top: -50px;
@@ -23,12 +35,24 @@
   -webkit-text-fill-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px;
+  border-radius: 8px;
   font-size: 18px;
   font-weight: 500;
-  border-radius: 8px;
+  @media screen and (max-width: $lg) {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  @media screen and (max-width: $md) {
+    font-size: 14px;
+    font-weight: 300;
+  }
+  @media screen and (max-width: $sm) {
+    font-size: 12px;
+    font-weight: 100;
+  }
 }
 .input-group-append {
-    display: flex;
+  display: flex;
 }
 .game-container {
   .shapes-group {
@@ -53,7 +77,7 @@
 
     .tabs {
       @include flex(flex-start, center);
-
+      padding-top: 50px;
       .tab {
         font-size: 1.3rem;
         padding: 0.6rem 4rem;
