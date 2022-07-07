@@ -671,67 +671,65 @@ export default function Game() {
                   <div
                     key={index}
                     onClick={() => handleActivePlay(tab.name)}
-                    className={`tab ${
-                      searchPlay === tab.name ? "active" : null
-                    }`}
+                    className={`tab ${searchPlay === tab.name ? "active" : null
+                      }`}
                   >
                     {tab.label}
                   </div>
                 ))}
               </div>
-              <div className="d-flex row-gap pb-2 icon-wrapper">
-                <div className="position-relative pointer">
-                  <div
-                    className={`position-absolute hover-tip ${
-                      activeHover === "seed" ? "block" : "d-none"
-                    }`}
-                  >
-                    Seed Managment
+              <div className="icon-wraps2">
+                <div className="d-flex row-gap pb-2 icon-wrapper">
+                  <div className="position-relative pointer">
+                    <div
+                      className={`position-absolute hover-tip ${activeHover === "seed" ? "block" : "d-none"
+                        }`}
+                    >
+                      Seed Managment
+                    </div>
+                    <img
+                      onClick={showSeedManagment}
+                      className="icon"
+                      onMouseEnter={() => mouseIn("seed")}
+                      onMouseLeave={mouseOut}
+                      src={SeedManagement}
+                      alt=""
+                    />
                   </div>
-                  <img
-                    onClick={showSeedManagment}
-                    className="icon"
-                    onMouseEnter={() => mouseIn("seed")}
-                    onMouseLeave={mouseOut}
-                    src={SeedManagement}
-                    alt=""
-                  />
-                </div>
-                <div className="position-relative pointer">
-                  <div
-                    className={`position-absolute hover-tip ${
-                      activeHover === "disable" ? "block" : "d-none"
-                    }`}
-                  >
-                    Disable Animation
+                  <div className="position-relative pointer">
+                    <div
+                      className={`position-absolute hover-tip ${activeHover === "disable" ? "block" : "d-none"
+                        }`}
+                    >
+                      Disable Animation
+                    </div>
+                    <img
+                      onClick={() => {
+                        setAnimationEnabled(!animationEnabled);
+                      }}
+                      className="icon"
+                      onMouseEnter={() => mouseIn("disable")}
+                      onMouseLeave={mouseOut}
+                      src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                      alt=""
+                    />
                   </div>
-                  <img
-                    onClick={() => {
-                      setAnimationEnabled(!animationEnabled);
-                    }}
-                    className="icon"
-                    onMouseEnter={() => mouseIn("disable")}
-                    onMouseLeave={mouseOut}
-                    src={animationEnabled ? AnimationEnabled : AnimationDisabled}
-                    alt=""
-                  />
-                </div>
-                <div className="position-relative pointer">
-                  <div
-                    className={`position-absolute hover-tip ${
-                      activeHover === "reset" ? "block" : "d-none"
-                    }`}
-                  >
-                    Reset Statistics
+                  <div className="position-relative pointer">
+                    <div
+                      className={`position-absolute hover-tip ${activeHover === "reset" ? "block" : "d-none"
+                        }`}
+                    >
+                      Reset Statistics
+                    </div>
+                    <img
+                      onClick={resetStatistics}
+                      className="icon"
+                      onMouseEnter={() => mouseIn("reset")}
+                      onMouseLeave={mouseOut}
+                      src={Refresh}
+                      alt=""
+                    />
                   </div>
-                  <img
-                    onClick={resetStatistics}
-                    className="icon"
-                    onMouseEnter={() => mouseIn("reset")}
-                    onMouseLeave={mouseOut}
-                    src={Refresh}
-                    alt=""
-                  />
                 </div>
               </div>
             </ScrollContainer>
@@ -1009,9 +1007,30 @@ export default function Game() {
                     <input type="number" readOnly value={profitOnWin} />
                   </div>
                 </div>
+
+                <div className="d-flex">
+                  <div>
+                    <div className="label win">Win Chance</div>
+                    <div> 4%</div>
+                  </div>
+                  <div>
+                    <div className="label">Max Profit</div>
+                    <div className="icons">
+                      <img style={{ width: '22px', marginRight: '8px' }}
+                        src={
+                          "/currencies/" +
+                          (selectedAssetCode || "btc") +
+                          ".png"
+                        }
+                        alt="selectedAssetCode"
+                      />19.28
+                    </div>
+                  </div>
+                </div>
+
                 <Row className="roll mb-3 d-flex d-md-none">
                   <Col lg={8} xl={6} className="col-10">
-                    <div className="input-group-append">
+                    <div className="input-group-append" >
                       <button
                         disabled={rollError || busy}
                         onClick={rollDice}
@@ -1106,8 +1125,8 @@ export default function Game() {
                         {(statistics.game_count === 0
                           ? 0
                           : (parseFloat(statistics.win_count) /
-                              parseFloat(statistics.game_count)) *
-                            100
+                            parseFloat(statistics.game_count)) *
+                          100
                         ).toFixed(2)}{" "}
                         %
                       </div>

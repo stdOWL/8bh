@@ -4,8 +4,27 @@
 .row-gap {
   column-gap: 20px;
 }
+.win{
+  margin-right: 11rem;
+  @media screen and (max-width:$sm){
+    margin-right: 6rem;
+  }
+}
+.icon-wraps2{
+ 
+ 
+  @media screen and (max-width:$sm){
+    display: none !important;
+  }
+}
 .icon-wrapper {
   // margin-top: 50px;
+  @media screen and (max-width:$sm){
+    flex-direction: column;
+    display: none;
+  }
+ 
+  
   div {
     img {
       @media screen and (max-width: $lg) {
@@ -53,6 +72,7 @@
 }
 .input-group-append {
   display: flex;
+  margin-top: 3rem !important;
 }
 .seed-managment-title{
   font-family: 'Outfit';
