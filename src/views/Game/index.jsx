@@ -4,14 +4,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ScrollContainer from "react-indiana-drag-scroll";
 import ethIcon from "../../assets/imgs/eth.png";
 import btcIcon from "../../assets/imgs/btc.png";
-import TipModel from '../../components/TipModel'
+import TipModel from "../../components/TipModel";
 import Rollers from "./Rollers";
 import Slider from "./Slider";
-import Title from './Title'
+import Title from "./Title";
 import Layout from "../../components/Layout";
 import ScriptRunner from "../../components/ScriptRunner";
 import SeedManagement from "../../assets/imgs/seed management.png";
-import Mute from "../../assets/imgs/mute.png";
+import AnimationDisabled from "../../assets/imgs/animation_disabled.png";
+import AnimationEnabled from "../../assets/imgs/animation_enabled.png";
+
 import Refresh from "../../assets/imgs/refresh.png";
 import "./style.scss";
 import { useLayout } from "../../components/Layout/context/layoutContext";
@@ -20,7 +22,6 @@ import { api, notify } from "../../util";
 //import CountUp from "react-countup";
 import { useCountUp } from "react-countup";
 import { useSelector } from "react-redux";
-import Loader from '../../components/Loader'
 import WarningIcon from "@mui/icons-material/Warning";
 import CasinoIcon from "@mui/icons-material/Casino";
 import CodeEditor from "@uiw/react-textarea-code-editor";
@@ -69,10 +70,10 @@ export default function Game() {
 
   const mouseIn = (node) => {
     setActiveHover(node);
-  }
+  };
   const mouseOut = () => {
     setActiveHover("");
-  }
+  };
   const [userSelectedClientSeed, setUserSelectedClientSeed] =
     React.useState("");
 
@@ -189,8 +190,8 @@ export default function Game() {
   const [countdownClass, setCountdownClass] = useState("countdown-progress");
   const [targetMultiplier, setTargetMultiplier] = useState(2.0);
   const [wager, setWager] = useState(0.1);
-  const [winChance, setWinChange] = useState(0.1);
-  const [profitOnWin, setProfitOnWin] = useState(0.1);
+  const [winChance, setWinChange] = useState("0.1");
+  const [profitOnWin, setProfitOnWin] = useState("0.1");
   const [gameResult, setGameResult] = useState("1.00");
   const [previousMultiplier, setPreviousMultiplier] = useState("0.00");
   const [scriptState, setScriptState] = useState(SCRIPT_MODE_EDIT);
@@ -230,7 +231,7 @@ export default function Game() {
           maximumSignificantDigits: 3,
         })
       );
-      setProfitOnWin(wager * (targetMultiplier - 1));
+      setProfitOnWin((wager * (targetMultiplier - 1)).toFixed(8));
     }
   }, [targetMultiplier, wager]);
 
@@ -271,8 +272,10 @@ export default function Game() {
   useEffect(() => {
     let selectedCurrency = currencies.find((s) => s.code === selectedAssetCode);
     if (selectedCurrency) {
-      console.log("wager", wager);
-      setWager(parseFloat(selectedCurrency.min_wager));
+      setWager(parseFloat(selectedCurrency.min_wager).toLocaleString("en", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 8,
+      }));
     }
   }, [selectedAssetCode]);
 
@@ -400,8 +403,6 @@ export default function Game() {
       let key = keys[i];
       let config = configValues[key];
       config.key = key;
-      if (config.type === "multiplier" || config.type === "balance")
-        config.value = (parseFloat(config.value) / 100).toFixed(2);
       configsParsed.push(config);
     }
 
@@ -413,6 +414,28 @@ export default function Game() {
       prevState.map((s) => (s.key === key ? { ...s, value } : s))
     );
   };
+
+  const validateWager = (wager) => {
+    const fWager = parseFloat(wager);
+    let selectedCurrency = currencies.find((s) => s.code === selectedAssetCode);
+    if (selectedCurrency) {
+      if (
+        isNaN(fWager) ||
+        fWager <= 0 ||
+        fWager < parseFloat(selectedCurrency.min_wager)
+      ) {
+        return parseFloat(selectedCurrency.min_wager).toLocaleString("en", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 8,
+        });
+      }
+    }
+    return fWager.toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 8,
+    });
+  };
+
   const findConfig = (jsonObjects) => {
     if (jsonObjects.length === 0 || code.indexOf("var config") === -1) {
       setConfigs([]);
@@ -462,7 +485,10 @@ export default function Game() {
           setSeedInfo((d) => {
             return { ...d, ...diceInfo.seedInfo };
           });
-          setWager(diceInfo.lastBet.wager);
+          setWager(parseFloat(diceInfo.lastBet.wager).toLocaleString("en", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 8,
+          }));
           setTargetMultiplier(parseFloat(diceInfo.lastBet.target) / 100);
           setGameResult(
             (diceInfo.lastBet.multiplier / 100).toLocaleString("en", {
@@ -480,19 +506,22 @@ export default function Game() {
 
   return (
     <div className="game-container">
-      
       {
         <Dialog
           fullWidth={fullWidth}
           maxWidth={maxWidth}
           open={open}
           onClose={handleClose}
+          sx={{
+            "& .MuiDialog-paper": {
+              backgroundColor: "#1A1A1B",
+            },
+          }}
         >
-          <DialogTitle>Seed management</DialogTitle>
+          <DialogTitle className="seed-managment-title">
+            Seed management
+          </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              You can set my maximum width and whether to adapt or not.
-            </DialogContentText>
             <Box
               noValidate
               component="form"
@@ -510,6 +539,11 @@ export default function Game() {
                 label="Previous server seed"
                 value={seedInfo.previousServerSeed}
                 variant="filled"
+                sx={{
+                  "& .MuiFilledInput-input": {
+                    color: "white",
+                  },
+                }}
                 focused
               />
               <TextField
@@ -521,6 +555,11 @@ export default function Game() {
                 value={seedInfo.previousClientSeed}
                 variant="filled"
                 focused
+                sx={{
+                  "& .MuiFilledInput-input": {
+                    color: "white",
+                  },
+                }}
               />
 
               <Divider
@@ -538,6 +577,11 @@ export default function Game() {
                 value={seedInfo.serverSeedHash}
                 variant="filled"
                 focused
+                sx={{
+                  "& .MuiFilledInput-input": {
+                    color: "white",
+                  },
+                }}
               />
               <TextField
                 InputProps={{
@@ -548,6 +592,11 @@ export default function Game() {
                 value={seedInfo.clientSeed}
                 variant="filled"
                 focused
+                sx={{
+                  "& .MuiFilledInput-input": {
+                    color: "white",
+                  },
+                }}
               />
               <TextField
                 InputProps={{
@@ -559,6 +608,11 @@ export default function Game() {
                 value={seedInfo.nonce}
                 variant="filled"
                 focused
+                sx={{
+                  "& .MuiFilledInput-input": {
+                    color: "white",
+                  },
+                }}
               />
               {seedInfo.nonce < 2 && (
                 <>
@@ -627,16 +681,57 @@ export default function Game() {
               </div>
               <div className="d-flex row-gap pb-2 icon-wrapper">
                 <div className="position-relative pointer">
-                  <div className={`position-absolute hover-tip ${activeHover === "seed"? "block": "d-none"}`}>Seed Managment</div>
-                  <img className="icon" onMouseEnter={() => mouseIn("seed")} onMouseLeave={mouseOut} src={SeedManagement} alt="" />
+                  <div
+                    className={`position-absolute hover-tip ${
+                      activeHover === "seed" ? "block" : "d-none"
+                    }`}
+                  >
+                    Seed Managment
+                  </div>
+                  <img
+                    onClick={showSeedManagment}
+                    className="icon"
+                    onMouseEnter={() => mouseIn("seed")}
+                    onMouseLeave={mouseOut}
+                    src={SeedManagement}
+                    alt=""
+                  />
                 </div>
                 <div className="position-relative pointer">
-                  <div className={`position-absolute hover-tip ${activeHover === "disable"? "block": "d-none"}`}>Disable Animation</div>
-                  <img className="icon" onMouseEnter={() => mouseIn("disable")} onMouseLeave={mouseOut} src={Mute} alt="" />
+                  <div
+                    className={`position-absolute hover-tip ${
+                      activeHover === "disable" ? "block" : "d-none"
+                    }`}
+                  >
+                    Disable Animation
+                  </div>
+                  <img
+                    onClick={() => {
+                      setAnimationEnabled(!animationEnabled);
+                    }}
+                    className="icon"
+                    onMouseEnter={() => mouseIn("disable")}
+                    onMouseLeave={mouseOut}
+                    src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                    alt=""
+                  />
                 </div>
                 <div className="position-relative pointer">
-                  <div className={`position-absolute hover-tip ${activeHover === "reset"? "block": "d-none"}`}>Reset Statistics</div>
-                  <img className="icon" onMouseEnter={() => mouseIn("reset")} onMouseLeave={mouseOut} src={Refresh} alt="" />
+                  <div
+                    className={`position-absolute hover-tip ${
+                      activeHover === "reset" ? "block" : "d-none"
+                    }`}
+                  >
+                    Reset Statistics
+                  </div>
+                  <img
+                    onClick={resetStatistics}
+                    className="icon"
+                    onMouseEnter={() => mouseIn("reset")}
+                    onMouseLeave={mouseOut}
+                    src={Refresh}
+                    alt=""
+                  />
                 </div>
               </div>
             </ScrollContainer>
@@ -793,7 +888,7 @@ export default function Game() {
               </div>
             ) : (
               <div className="game-box">
-                {LOGGED_IN && (
+                {false && LOGGED_IN && (
                   <Row>
                     <ButtonGroup
                       variant="contained"
@@ -843,7 +938,9 @@ export default function Game() {
                       <input
                         type="number"
                         value={wager}
-                        onChange={({ target }) => setWager(target.value)}
+                        onChange={({ target }) =>
+                          setWager(validateWager(target.value))
+                        }
                       />
                       <div className="icons">
                         <Image
@@ -937,67 +1034,22 @@ export default function Game() {
                         onClick={skipBet}
                         className="btn btn-outline-secondary"
                         type="button"
+                        sx={{
+                          width: '20%'
+                        }}
                       >
                         Skip
                       </button>
                     </div>
                   </Col>
                 </Row>
-                <Row className="info">
-                  <Col md={5} xl={3} className="col-6 form-group">
-                    <div className="label">Win Chance</div>
-                    <div className="label values">{winChance}%</div>
-                  </Col>
-                  <Col md={7} xl={9} className="col-6 form-group">
-                    <div className="label">Max Profit</div>
-                    <div className="label values profit">
-                      <img src={btcIcon} />
-                      1.928
-                    </div>
-                  </Col>
-                </Row>
-                {LOGGED_IN && (
-                  <Row className="info">
-                    <Col md={5} xl={3} className="col-6 form-group">
-                      <div className="label">Wagers</div>
-                      <div className="label values">
-                        {parseFloat(statistics.wagers).toFixed(2)} $
-                      </div>
-                    </Col>
-                    <Col md={5} xl={3} className="col-6 form-group">
-                      <div className="label">Profit</div>
-                      <div className="label values">
-                        {parseFloat(statistics.profit).toFixed(2)} $
-                      </div>
-                    </Col>
-                    <Col md={5} xl={3} className="col-6 form-group">
-                      <div className="label">Win Rate</div>
-                      <div className="label values">
-                        {(statistics.game_count === 0
-                          ? 0
-                          : (parseFloat(statistics.win_count) /
-                              parseFloat(statistics.game_count)) *
-                            100
-                        ).toFixed(2)}{" "}
-                        %
-                      </div>
-                    </Col>
-                    <Col md={5} xl={3} className="col-6 form-group">
-                      <div className="label">Luck</div>
-                      <div className="label values">
-                        {parseFloat(statistics.win_count).toFixed(2)} %
-                      </div>
-                    </Col>
-                  </Row>
-                )}
-
                 <Row className="roll d-none d-md-flex">
                   <Col lg={8} xl={6} className="col-10">
                     <div className="input-group-append row">
                       <button
                         disabled={rollError || busy}
                         onClick={rollDice}
-                        className="primary-btn roll-dice col-md-8"
+                        className="primary-btn roll-dice col-md-10"
                       >
                         {rollError ? (
                           <>
@@ -1014,7 +1066,7 @@ export default function Game() {
                       <button
                         disabled={rollError || busy}
                         onClick={skipBet}
-                        className="btn btn-outline-secondary col-md-4"
+                        className="btn btn-outline-secondary col-md-2"
                         type="button"
                       >
                         Skip
@@ -1022,6 +1074,52 @@ export default function Game() {
                     </div>
                   </Col>
                 </Row>
+
+                {LOGGED_IN && (
+                  <Row className="info">
+                    <Col md={5} xl={2} className="col-6 form-group">
+                      <div className="label">Win Chance</div>
+                      <div className="label values">{winChance}%</div>
+                    </Col>
+                    <Col md={7} xl={2} className="col-6 form-group">
+                      <div className="label">Max Profit</div>
+                      <div className="label values profit">
+                        <img src={btcIcon} />
+                        1.928
+                      </div>
+                    </Col>
+                    <Col md={5} xl={2} className="col-6 form-group">
+                      <div className="label">Wagers</div>
+                      <div className="label values">
+                        {parseFloat(statistics.wagers).toFixed(2)} $
+                      </div>
+                    </Col>
+                    <Col md={5} xl={2} className="col-6 form-group">
+                      <div className="label">Profit</div>
+                      <div className="label values">
+                        {parseFloat(statistics.profit).toFixed(2)} $
+                      </div>
+                    </Col>
+                    <Col md={5} xl={2} className="col-6 form-group">
+                      <div className="label">Win Rate</div>
+                      <div className="label values">
+                        {(statistics.game_count === 0
+                          ? 0
+                          : (parseFloat(statistics.win_count) /
+                              parseFloat(statistics.game_count)) *
+                            100
+                        ).toFixed(2)}{" "}
+                        %
+                      </div>
+                    </Col>
+                    <Col md={5} xl={2} className="col-6 form-group">
+                      <div className="label">Luck</div>
+                      <div className="label values">
+                        {parseFloat(statistics.win_count).toFixed(2)} %
+                      </div>
+                    </Col>
+                  </Row>
+                )}
               </div>
             )}
           </div>

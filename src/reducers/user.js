@@ -42,6 +42,8 @@ function normalizeUser(user) {
 
 export default handleActions(
   {
+    
+
     [setSelectedAssetCodeCodeAction]: (state, { payload }) =>
       produce(state, draft => {
         localStorage.setItem('selectedAssetCode',payload.assetCode);
@@ -66,12 +68,12 @@ export default handleActions(
           ...payload,
           selectedAssetCode: localStorage.getItem('selectedAssetCode') || 'btc',
         }
-
+        console.log("newUserAction",newUser);
         if (!newUser.id) {
           return state
         }
 
-        return normalizeUser(newUser)
+        return newUser
       }),
     [logoutAction]: (state, { payload }) =>
       produce(state, draft => {

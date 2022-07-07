@@ -39,21 +39,8 @@ const themeOptions = {
 const theme = createTheme(themeOptions);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-async function loadUser() {
-  if (token.getLocalAccessToken()) {
-    try {
-      let r = await getAccount()
-      if (r) {
-        defaultSocket.subscribeUser(r.stream_token);
-      }
-    } catch (err) {
-      console.error('loadUser', err)
-    }
-  }
-};
 
 root.render(
-  loadUser() &&
   <ThemeProvider theme={theme}>
     <BrowserRouter>
       <LayoutProvider>

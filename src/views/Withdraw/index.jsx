@@ -10,8 +10,14 @@ import "./style.scss";
 import { useSelector } from "react-redux";
 import { notify, api } from "../../util";
 import Alert from "@mui/material/Alert";
-import Loader from '../../components/Loader'
+import { useNavigate } from "react-router-dom";
+
+
+
 export default function Withdraw() {
+  let navigate = useNavigate();
+
+
   const { LOGGED_IN, name, depositCurrencies } = useSelector(({ user }) => ({
     LOGGED_IN: !!user,
     name: user ? user.username : null,
@@ -22,7 +28,11 @@ export default function Withdraw() {
 
   const [amount, setAmount] = useState('');
   const [address, setAddress] = useState('');
-
+  useEffect(() => {
+    if(!LOGGED_IN){
+      navigate("/");
+    }
+  }, []);
   useEffect(() => {
     if (LOGGED_IN && depositCurrencies.length > 0) {
       if (!depositCurrency) {

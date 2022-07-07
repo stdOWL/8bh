@@ -2,10 +2,10 @@
 @import "../../../scss/variables.scss";
 
 .game-title {
-    padding: 4rem 0;
+    padding: 1rem 0;
     @media (max-width: $md) {
-        padding-top: 1rem;
-        padding-bottom: 3rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
 
     .box {

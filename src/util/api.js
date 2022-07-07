@@ -15,7 +15,7 @@ const nonRetryCodes = [
 export const api = axios.create({
     timeout: 1000 * 10 * 10, // need a higher timeout for ACP at least
     baseURL: env.API_URL,
-   // withCredentials: true,
+    withCredentials: true,
     headers: {
         'accept-language': global.window ? localStorage.getItem('i18nextLng') : 'en',
     },
@@ -47,7 +47,7 @@ api.interceptors.response.use(
                     const rs = await api.post("/auth/refresh-tokens", {
                         refreshToken: TokenService.getLocalRefreshToken(),
                     });
-                    
+
                     const { access, refresh } = rs;
                     TokenService.updateLocalAccessToken(access.token, refresh.token);
                     return api(originalConfig);

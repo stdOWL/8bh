@@ -7,8 +7,12 @@ import "./style.scss";
 import { useSelector } from "react-redux";
 import { QRCode } from "react-qrcode-logo";
 import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 export default function Deposit() {
+  let navigate = useNavigate();
+  
+
   const { LOGGED_IN, name, depositCurrencies } = useSelector(({ user }) => ({
     LOGGED_IN: !!user,
     name: user ? user.username : null,
@@ -16,7 +20,13 @@ export default function Deposit() {
   }));
   const [depositCurrency, setDepositCurrency] = useState(null);
   const [selectedNetwork, setSelectedNetwork] = useState(null);
-
+  
+  
+  useEffect(() => {
+    if(!LOGGED_IN){
+      navigate("/");
+    }
+  }, []);
   useEffect(() => {
     if (LOGGED_IN && depositCurrencies.length > 0 && depositCurrency == null) {
       setDepositCurrency(depositCurrencies[0]);

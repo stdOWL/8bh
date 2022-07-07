@@ -4,6 +4,9 @@ import {
     store, api, token
 } from '../util'
 import { setUser, logout, updateBalance, setSelectedAssetCode } from '../reducers/user'
+import { setLoadingState } from '../reducers/general'
+
+
 export const setAccount = async (user) => {
     store.dispatch(setUser(user))
 }
@@ -21,29 +24,40 @@ export const setLogout = async () => {
 }
 export const getAccount = async () => {
     try {
+        store.dispatch(setLoadingState("Loading"))
+
+
+
         const { balances, user } = await api('/account/get');
+        console.log("getAccount", balances, user)
+
+
         user.balances = balances;
         ;
-        if (typeof window.Tawk_API.setAttributes !== "undefined") {
-            window.Tawk_API.setAttributes(
-                {
-                    name: user.username
-                },
-                function (err) { }
-            );
-
-        } else {
-            window.Tawk_API.onLoad = function () {
-                console.log('onload',user.username,user.email);
+        try {
+            if (typeof window.Tawk_API.setAttributes !== "undefined") {
                 window.Tawk_API.setAttributes(
                     {
                         name: user.username
                     },
-                    function (err) {
-                    }
+                    function (err) { }
                 );
-            };
 
+            } else {
+                window.Tawk_API.onLoad = function () {
+                    console.log('onload', user.username, user.email);
+                    window.Tawk_API.setAttributes(
+                        {
+                            name: user.username
+                        },
+                        function (err) {
+                        }
+                    );
+                };
+
+
+            }
+        } catch (err) {
 
         }
 
@@ -51,10 +65,15 @@ export const getAccount = async () => {
         store.dispatch(setUser(user))
         return user
     } catch (err) {
+        console.error("getAccount", err)
         if (err.code === 401) {
             setLogout();
         }
         return undefined
+    }finally{
+        store.dispatch(setLoadingState(false))
+
+
     }
 }
 

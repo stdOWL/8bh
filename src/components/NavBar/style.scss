@@ -8,12 +8,14 @@
 
 .nav-bar {
   //padding: 1.5rem 3rem !important;
+  height: 90px;
   width: 97%;
   margin: auto;
   background-color: $background;
   border-bottom: 1px solid rgba(#ffffff, 0.1);
   @include flex(space-between, center);
   @media (max-width: $sm) {
+    height: 70px;
     //padding: 1rem !important;
     //padding-top: 1.5rem !important;
     width: 100%;

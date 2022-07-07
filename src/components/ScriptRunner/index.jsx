@@ -5,16 +5,17 @@ import TextField from "@mui/material/TextField";
 
 export default function ScriptRunner({ code }) {
   const iframe = useRef();
+  console.log("ScriptRunner", code);
+  const [logs, setLogs] = useState("");
 
-  const [logs, setLogs] = useState('');
+  const { username, selectedAssetCode, currencies } = useSelector(
+    ({ user }) => ({
+      username: user ? user.username : null,
+      selectedAssetCode: user ? user.selectedAssetCode : null,
+      currencies: user ? user.balances : [],
+    })
+  );
 
-  const { username, selectedAssetCode, currencies, } = useSelector(({ user }) => ({
-    username: user ? user.username : null,
-    selectedAssetCode: user ? user.selectedAssetCode : null,
-    currencies: user ? user.balances : [],
-  }));
-
- 
   const sendResponse = (id, payload) => {
     iframe.current &&
       iframe.current.contentWindow.postMessage({ id, payload }, "*");
@@ -29,6 +30,24 @@ export default function ScriptRunner({ code }) {
         "*"
       );
   };
+
+  const setClientSeed = (clientSeed, requestId) => {
+    const fetchClientSeed = async () => {
+      try {
+        const response = await api.post("/bet/setDiceClientSeed", {
+          clientSeed,
+        });
+        if (response.error) {
+          setLogs(logs + "\n" + response.error);
+        } else {
+          sendResponse(requestId, response);
+        }
+      } catch (err) {
+        notify.error(err.response ? err.response.data : err.message);
+      }
+    };
+    fetchClientSeed();
+  };
   const bet = (wager, target, requestId) => {
     const loadBets = async () => {
       try {
@@ -37,16 +56,36 @@ export default function ScriptRunner({ code }) {
           target,
           asset_code: selectedAssetCode,
         });
-        if(response.error){
+        if (response.error) {
           setLogs(logs + "\n" + response.error);
-        }else
+        } else {
           sendResponse(requestId, response.bet);
+        }
       } catch (err) {
         notify.error(err.response ? err.response.data : err.message);
       }
     };
 
     loadBets();
+  };
+  const newSeedPair = (requestId) => {
+    const fetchDiceServerSeed = async () => {
+      try {
+        const response = await api.get("/bet/revealDiceServerSeed");
+        if (response.error) {
+          setLogs(logs + "\n" + response.error);
+        } else {
+          sendResponse(requestId, {
+            server_seed_hash: response.serverSeedHash,
+            prev_server_seed: response.previousServerSeed,
+            prev_client_seed: response.previousClientSeed
+          });
+        }
+      } catch (err) {
+        notify.error(err.response ? err.response.data : err.message);
+      }
+    };
+    fetchDiceServerSeed();
   };
   const onScriptMessage = ({ data: { id, type, payload } }) => {
     switch (type) {
@@ -59,17 +98,17 @@ export default function ScriptRunner({ code }) {
           bankroll: 10000,
           script: code,
           uname: username,
+          currency: selectedAssetCode,
         });
         break;
       }
       case "newSeedPair": {
-        sendResponse(id, {
-          server_seed_hash: "test",
-        });
+        newSeedPair(id);
+
         break;
       }
       case "setClientSeed": {
-        sendResponse(id);
+        setClientSeed(payload, id);
         break;
       }
       case "bet": {

@@ -80,12 +80,18 @@ export default function Menu({ open }) {
             </svg>
           </button>
         </li>
-        <li>
-          <button onClick={() => setLoginModalShow(true)}>Login</button>
-        </li>
-        <li>
-          <button onClick={() => setRegisterModalShow(true)}>Register</button>
-        </li>
+        {!LOGGED_IN && (
+          <>
+            <li>
+              <button onClick={() => setLoginModalShow(true)}>Login</button>
+            </li>
+            <li>
+              <button onClick={() => setRegisterModalShow(true)}>
+                Register
+              </button>
+            </li>
+          </>
+        )}
         {LOGGED_IN && (
           <li className="logout">
             <button onClick={logout}>Logout</button>

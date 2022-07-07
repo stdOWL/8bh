@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import chatIcon from "../../assets/imgs/chat.svg";
 import NavBar from "../NavBar";
 import History from "../History";
@@ -6,11 +6,17 @@ import Chat from "../Chat";
 import "./style.scss";
 import { useLayout } from "./context/layoutContext";
 import Modal from "@mui/material/Modal";
+import { isDesktop } from "react-device-detect";
 
 function Layout({ title, container = true, history = true, children }) {
-  const { isLargeScreen, openChat, setOpenChat, setRegisterModalShow } = useLayout();
- 
+  const { isLargeScreen, openChat, setOpenChat, setRegisterModalShow } =
+    useLayout();
 
+  useEffect(() => {
+    if (isDesktop) {
+      setOpenChat(true);
+    }
+  }, []);
   return (
     <>
       <div className={`layout`}>

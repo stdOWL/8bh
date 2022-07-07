@@ -215,12 +215,14 @@
                     balance,
                     bankroll,
                     script,
-                    uname: username
+                    uname: username,
+                    currency
                 }) => {
                     Object.assign(this.executionContext, {
                         balance,
                         bankroll,
-                        username
+                        username,
+                        currency
                     });
                     const wrappedScript = `\n        (async () => {\n          ${script}\n        })()\n        .catch(error => this.log("ERROR:", error.message))\n        .then(this.stop)\n      `;
                     (function () {

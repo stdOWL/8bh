@@ -1,17 +1,21 @@
 import React from "react";
 import LoadingIcon from "../../assets/imgs/Loading Icon.svg";
 import "./style.scss";
-function index({show = false}) {
-  return (
-    <div className={`container-div ${show? "": "d-none"}`}>
+import { useSelector } from "react-redux";
+export default function Loader() {
+  const { loadingState } = useSelector(({ general }) => ({
+    loadingState: general.loadingState,
+  }));
+
+  return (loadingState && 
+    <div className={`container-div`}>
       <div className="over">
         <div className="wrapper">
           <img src={LoadingIcon} alt="" />
-          <p>Withdraw...</p>
+          <p>{loadingState}...</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default index;

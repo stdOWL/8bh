@@ -5,8 +5,13 @@ import "./style.scss";
 import FAQComponent from "./faqs";
 import PagesComponent from "./pages";
 import { useLayout } from "../Layout/context/layoutContext";
+import { useSelector } from "react-redux";
 
 export default function Footer() {
+  const { LOGGED_IN } = useSelector(({ user }) => ({
+    LOGGED_IN: !!user,
+  }));
+
   const [FAQopen, setFAQopen] = React.useState(false);
   const [PageName, setPageName] = React.useState(null);
   const { setRegisterModalShow, setLoginModalShow, loginModalShow } =
@@ -94,7 +99,7 @@ export default function Footer() {
           </Container>
         </Col>
       </Row>
-      <div className="auth-btns-wrapper d-lg-none">
+      { !LOGGED_IN && (<div className="auth-btns-wrapper d-lg-none">
         <div className="auth-btns">
           <li className="d-flex d-lg-none">
             <button
@@ -115,7 +120,8 @@ export default function Footer() {
             </button>
           </li>
         </div>
-      </div>
+      </div>) }
+      
     </div>
   );
 }

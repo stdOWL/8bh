@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react'
 import Footer from './components/Footer'
 import NavBar from './components/NavBar'
+import { getAccount } from './lib/user'
+
+
+import { defaultSocket } from "./lib/sockets";
 import { Home, Withdraw, AccountSecurity, Deposit, Game, Login, Register, ResetPassword, Player } from './views'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { store, token } from "./util";
@@ -8,13 +12,36 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from "react-redux";
 import ReactGA from "react-ga4";
+import Loader from './components/Loader'
+
+
 const TRACKING_ID = "G-LH1NN7YJSL";
 ReactGA.initialize(TRACKING_ID);
 ReactGA.send("pageview");
 
+
+
 export default function App() {
   const { pathname } = useLocation()
   let page = pathname.split('/')[1].toLowerCase()
+
+
+
+  const loadUser = async () => {
+    if (token.getLocalAccessToken()) {
+      
+      try {
+        let r = await getAccount()
+        if (r) {
+          defaultSocket.subscribeUser(r.stream_token);
+        }
+      } catch (err) {
+
+        console.error('loadUser', err)
+      }
+    }
+  };
+
 
   useEffect(() => {
 
@@ -25,6 +52,7 @@ export default function App() {
   }, [pathname])
   useEffect(() => {
     ReactGA.send("pageview");
+    loadUser();
     //pageview(window.location.pathname + window.location.search);
   }, []);
 
@@ -35,6 +63,8 @@ export default function App() {
       <ToastContainer />
       <Login></Login>
       <Register></Register>
+      <Loader></Loader>
+
       <Routes>
         {
           routes.map((route) => (

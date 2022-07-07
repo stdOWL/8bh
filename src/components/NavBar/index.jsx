@@ -10,13 +10,15 @@ import { useLayout } from "../../components/Layout/context/layoutContext";
 import { defaultSocket } from "../../lib/sockets";
 
 export default function NavBar(a) {
-  const { LOGGED_IN, name, searchCurrencies, stream_token, selectedAssetCode } =
-    useSelector(({ user }) => ({
+  const { LOGGED_IN, name, searchCurrencies, stream_token, selectedAssetCode, accountLoading } =
+    useSelector(({ user, general }) => ({
+      accountLoading: general.loadingState,
       LOGGED_IN: !!user,
+
       name: user ? user.username : null,
-      searchCurrencies: user ? user.balances : [],
-      stream_token: user ? user.stream_token : null,
-      selectedAssetCode: user ? user.selectedAssetCode : null,
+      searchCurrencies: user && user.balances ? user.balances : [],
+      stream_token: user && user.stream_token ? user.stream_token : null,
+      selectedAssetCode: user && user.selectedAssetCode ? user.selectedAssetCode : null,
     }));
 
   const [open, setOpen] = useState(false);
@@ -76,8 +78,7 @@ export default function NavBar(a) {
           alt="8BetHub Logo"
           className="dicelogo"
         />
-
-        <Nav className="menu ms-lg-auto">
+      {!accountLoading && (<Nav className="menu ms-lg-auto">
           <ul className="list p-0">
             {LOGGED_IN ? (
               <>
@@ -253,7 +254,8 @@ export default function NavBar(a) {
               </button>
             </li>
           </ul>
-        </Nav>
+        </Nav>)}
+        
 
         <div onClick={() => setOpen(!open)} className="open-nav d-lg-none">
           {!open ? (
