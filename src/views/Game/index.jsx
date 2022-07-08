@@ -667,6 +667,63 @@ export default function Game() {
             </h1>
           </Col>
         </Row>
+        <div className="icon-wraps">
+          <div className="d-flex row-gap pb-2 gap-2 icon-wrapper">
+            <div className="position-relative pointer">
+              <div
+                className={`position-absolute hover-tip ${
+                  activeHover === "seed" ? "block" : "d-none"
+                }`}
+              >
+                Seed Managment
+              </div>
+              <img
+                onClick={showSeedManagment}
+                className="icon"
+                onMouseEnter={() => mouseIn("seed")}
+                onMouseLeave={mouseOut}
+                src={SeedManagement}
+                alt=""
+              />
+            </div>
+            <div className="position-relative pointer">
+              <div
+                className={`position-absolute hover-tip ${
+                  activeHover === "disable" ? "block" : "d-none"
+                }`}
+              >
+                Disable Animation
+              </div>
+              <img
+                onClick={() => {
+                  setAnimationEnabled(!animationEnabled);
+                }}
+                className="icon"
+                onMouseEnter={() => mouseIn("disable")}
+                onMouseLeave={mouseOut}
+                src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                alt=""
+              />
+            </div>
+            <div className="position-relative pointer">
+              <div
+                className={`position-absolute hover-tip ${
+                  activeHover === "reset" ? "block" : "d-none"
+                }`}
+              >
+                Reset Statistics
+              </div>
+              <img
+                onClick={resetStatistics}
+                className="icon"
+                onMouseEnter={() => mouseIn("reset")}
+                onMouseLeave={mouseOut}
+                src={Refresh}
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
         <div className="game">
           <div className="play-box">
             <ScrollContainer className="tabs d-flex justify-content-between">

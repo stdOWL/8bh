@@ -2,139 +2,139 @@
 @import "../../scss/variables.scss";
 
 .icon-wraps {
-    position: absolute;
-    top: 100px;
-    margin-left: 15px;
+  position: absolute;
+  top: 125px;
+  margin-left: 15px;
 
-    @media (min-width: $sm) {
-        display: none;
-    }
+  @media (min-width: $sm) {
+    display: none;
+  }
 }
 
 .layout {
-    // padding-top: 5rem;
-    overflow: hidden;
+  // padding-top: 5rem;
+  overflow: hidden;
+  position: relative;
+
+  .title {
+    line-height: 2.6rem;
+    font-weight: 500;
+    margin-bottom: 4rem;
     position: relative;
+    width: fit-content;
 
-    .title {
-        line-height: 2.6rem;
-        font-weight: 500;
-        margin-bottom: 4rem;
-        position: relative;
-        width: fit-content;
-
-        @media (max-width: $sm) {
-            margin-left: 1.5rem;
-            margin-bottom: 3.2rem;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            width: 75%;
-            height: 1.25rem;
-            left: -0.5rem;
-            bottom: -0.4rem;
-            background: linear-gradient(268.28deg, #ff6316 -8.77%, #ff8f16 100%);
-            z-index: -1;
-        }
+    @media (max-width: $sm) {
+      margin-left: 1.5rem;
+      margin-bottom: 3.2rem;
     }
 
-    .layout-box {
-        background-color: $med-gray;
-        padding: 3.5rem;
-        padding-right: 1rem;
-
-        @media (max-width: $sm) {
-            padding: 1.5rem 1.2rem;
-        }
+    &::after {
+      content: "";
+      position: absolute;
+      width: 75%;
+      height: 1.25rem;
+      left: -0.5rem;
+      bottom: -0.4rem;
+      background: linear-gradient(268.28deg, #ff6316 -8.77%, #ff8f16 100%);
+      z-index: -1;
     }
+  }
 
-    .main-row {
-        transition: 0.2s ease;
-        @include flex(flex-start, flex-start);
+  .layout-box {
+    background-color: $med-gray;
+    padding: 3.5rem;
+    padding-right: 1rem;
 
-        .main {
-            width: 100%;
-            transition: 0.2s ease;
-
-            .open-chat-icon {
-                z-index: 1;
-                right: 0;
-                padding: 1rem;
-                @include flex(flex-end, flex-start);
-                cursor: pointer;
-
-                img {
-                    max-width: 45px;
-
-                    @media (max-width: $md) {
-                        max-width: 40px;
-                    }
-
-                    @media (max-width: $sm) {
-                        max-width: 30px;
-                    }
-                }
-            }
-        }
-
-        .open-main {
-            width: calc(100% - 460px);
-
-            @media (max-width: $xl) {
-                width: calc(100% - 380px);
-            }
-        }
-
-        .chat-main {
-            transform: translateX(500px);
-            max-width: 0;
-            transition: 0.2s ease;
-            margin-left: 0.5rem;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-        }
-
-        .open-chat-main {
-            transform: translateX(-0.5px);
-            position: fixed;
-            right: 0;
-            max-width: 440px;
-
-            @media (max-width: $xl) {
-                max-width: 360px;
-            }
-        }
+    @media (max-width: $sm) {
+      padding: 1.5rem 1.2rem;
     }
+  }
 
-    .open-chat {
-        @include flex(flex-end, center);
-        padding: 0.5rem;
-        position: relative;
+  .main-row {
+    transition: 0.2s ease;
+    @include flex(flex-start, flex-start);
+
+    .main {
+      width: 100%;
+      transition: 0.2s ease;
+
+      .open-chat-icon {
+        z-index: 1;
+        right: 0;
+        padding: 1rem;
+        @include flex(flex-end, flex-start);
+        cursor: pointer;
 
         img {
-            cursor: pointer;
-        }
+          max-width: 45px;
 
-        .inner-chat {
-            position: fixed;
-            top: 0;
-            right: -200%;
-            width: 100%;
-            height: 100%;
-            max-width: 420px;
-            transition: 0.3s ease-in-out;
-            z-index: 99999;
+          @media (max-width: $md) {
+            max-width: 40px;
+          }
 
-            @media (max-width: $sm) {
-                max-width: 100%;
-            }
+          @media (max-width: $sm) {
+            max-width: 30px;
+          }
         }
-
-        .open-inner-chat {
-            right: 1px;
-        }
+      }
     }
+
+    .open-main {
+      width: calc(100% - 460px);
+
+      @media (max-width: $xl) {
+        width: calc(100% - 380px);
+      }
+    }
+
+    .chat-main {
+      transform: translateX(500px);
+      max-width: 0;
+      transition: 0.2s ease;
+      margin-left: 0.5rem;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+    }
+
+    .open-chat-main {
+      transform: translateX(-0.5px);
+      position: fixed;
+      right: 0;
+      max-width: 440px;
+
+      @media (max-width: $xl) {
+        max-width: 360px;
+      }
+    }
+  }
+
+  .open-chat {
+    @include flex(flex-end, center);
+    padding: 0.5rem;
+    position: relative;
+
+    img {
+      cursor: pointer;
+    }
+
+    .inner-chat {
+      position: fixed;
+      top: 0;
+      right: -200%;
+      width: 100%;
+      height: 100%;
+      max-width: 420px;
+      transition: 0.3s ease-in-out;
+      z-index: 99999;
+
+      @media (max-width: $sm) {
+        max-width: 100%;
+      }
+    }
+
+    .open-inner-chat {
+      right: 1px;
+    }
+  }
 }
