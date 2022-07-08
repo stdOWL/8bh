@@ -27,7 +27,6 @@ function Layout({ title, container = true, history = true, children }) {
   const [activeHover, setActiveHover] = useState("");
   const [animationEnabled, setAnimationEnabled] = useState(true);
 
-
   const mouseIn = (node) => {
     setActiveHover(node);
   };
@@ -48,7 +47,6 @@ function Layout({ title, container = true, history = true, children }) {
 
   const { setLoginModalShow, loginModalShow } = useLayout();
   const [busy, setBusy] = useState(false);
-
 
   const resetStatistics = () => {
     if (LOGGED_IN === false) {
@@ -79,7 +77,7 @@ function Layout({ title, container = true, history = true, children }) {
     setBusy(true);
     fetchResetStatistics();
   };
-  
+
   const { LOGGED_IN, selectedAssetCode, currencies } = useSelector(
     ({ user }) => ({
       LOGGED_IN: !!user,
@@ -88,13 +86,11 @@ function Layout({ title, container = true, history = true, children }) {
     })
   );
 
-
   return (
     <>
       <div className={`layout`}>
         <div className="main-row">
           <div className={`main ${openChat && isLargeScreen && "open-main"}`}>
-
             <NavBar />
             {container && (
               <div className="open-chat-icon">
@@ -111,8 +107,9 @@ function Layout({ title, container = true, history = true, children }) {
             {!isLargeScreen ? (
               <div className="open-chat">
                 <div
-                  className={`inner-chat ${openChat ? "open-inner-chat" : null
-                    }`}
+                  className={`inner-chat ${
+                    openChat ? "open-inner-chat" : null
+                  }`}
                 >
                   <Chat
                     key="staticChat"
@@ -124,11 +121,12 @@ function Layout({ title, container = true, history = true, children }) {
             ) : null}
 
             <div className="icon-wraps">
-              <div className="d-flex row-gap pb-2 gap-2 icon-wrapper">
+              {/* <div className="d-flex row-gap pb-2 gap-2 icon-wrapper">
                 <div className="position-relative pointer">
                   <div
-                    className={`position-absolute hover-tip ${activeHover === "seed" ? "block" : "d-none"
-                      }`}
+                    className={`position-absolute hover-tip ${
+                      activeHover === "seed" ? "block" : "d-none"
+                    }`}
                   >
                     Seed Managment
                   </div>
@@ -143,8 +141,9 @@ function Layout({ title, container = true, history = true, children }) {
                 </div>
                 <div className="position-relative pointer">
                   <div
-                    className={`position-absolute hover-tip ${activeHover === "disable" ? "block" : "d-none"
-                      }`}
+                    className={`position-absolute hover-tip ${
+                      activeHover === "disable" ? "block" : "d-none"
+                    }`}
                   >
                     Disable Animation
                   </div>
@@ -155,14 +154,17 @@ function Layout({ title, container = true, history = true, children }) {
                     className="icon"
                     onMouseEnter={() => mouseIn("disable")}
                     onMouseLeave={mouseOut}
-                    src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                    src={
+                      animationEnabled ? AnimationEnabled : AnimationDisabled
+                    }
                     alt=""
                   />
                 </div>
                 <div className="position-relative pointer">
                   <div
-                    className={`position-absolute hover-tip ${activeHover === "reset" ? "block" : "d-none"
-                      }`}
+                    className={`position-absolute hover-tip ${
+                      activeHover === "reset" ? "block" : "d-none"
+                    }`}
                   >
                     Reset Statistics
                   </div>
@@ -175,7 +177,7 @@ function Layout({ title, container = true, history = true, children }) {
                     alt=""
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className={container && !openChat ? "container" : null}>
