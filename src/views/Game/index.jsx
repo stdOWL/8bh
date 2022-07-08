@@ -722,7 +722,7 @@ export default function Game() {
                       activeHover === "reset" ? "block" : "d-none"
                     }`}
                   >
-                    Reset Statistics
+                    Reset Stats
                   </div>
                   <img
                     onClick={resetStatistics}
@@ -913,7 +913,7 @@ export default function Game() {
                         }}
                         onClick={resetStatistics}
                       >
-                        Reset Statistics
+                        Reset Stats
                       </Button>
                       <Button
                         sx={{
@@ -936,6 +936,7 @@ export default function Game() {
                     <div className="label">Wager</div>
                     <div className="custom-input">
                       <input
+                        pattern="[0-9]*"
                         type="number"
                         value={wager}
                         onChange={({ target }) =>
@@ -974,6 +975,7 @@ export default function Game() {
                     <div className="label">Target Multiplier</div>
                     <input
                       type="number"
+                      pattern="[0-9]*"
                       value={targetMultiplier}
                       onChange={({ target }) =>
                         setTargetMultiplier(target.value)

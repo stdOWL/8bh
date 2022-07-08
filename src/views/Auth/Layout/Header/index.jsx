@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row } from 'react-bootstrap'
 import dicelogo from '../../../../assets/imgs/logo/icon.png'
-import loginbtcgroup from '../../../../assets/imgs/loginbtcgroup.svg'
+import loginbtcgroup from '../../../../assets/imgs/loginbtcgroup.png'
 import './style.scss'
 
 export default function Header({ title }) {
