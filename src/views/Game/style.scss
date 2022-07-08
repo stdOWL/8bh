@@ -4,8 +4,79 @@
 .row-gap {
   column-gap: 20px;
 }
+.mainlabel {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: $sm) {
+    flex-direction: column;
+  }
+}
+.seven-cols {
+  width: 100%;
+}
+@media (min-width: 320px) and (max-width: 425.7px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 49% !important;
+    *width: 49% !important;
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.7px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 33% !important;
+    *width: 33% !important;
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 992px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
+  }
+}
+@media (min-width: 1200px) {
+  .seven-cols .col-md-1,
+  .seven-cols .col-sm-1,
+  .seven-cols .col-lg-1 {
+    width: 14.285714285714285714285714285714%;
+    *width: 14.285714285714285714285714285714%;
+  }
+}
+.bet {
+  @media screen and (max-width: $sm) {
+    display: none !important;
+  }
+}
+.win {
+  font-size: 13px !important;
+  width: 110px;
+  @media screen and (max-width: $sm) {
+    width: 77px;
+  }
+}
+.win2 {
+  font-size: 13px;
+}
+.icon-wraps2 {
+  @media screen and (max-width: $sm) {
+    display: none !important;
+  }
+}
 .icon-wrapper {
   // margin-top: 50px;
+  @media screen and (max-width: $sm) {
+    flex-direction: column;
+    display: none;
+  }
+
   div {
     img {
       @media screen and (max-width: $lg) {
@@ -53,29 +124,29 @@
 }
 .input-group-append {
   display: flex;
+  margin-top: 3rem !important;
 }
-.seed-managment-title{
-  font-family: 'Outfit';
-font-style: normal;
-font-weight: 500;
-font-size: 35px;
-line-height: 43px;
-/* identical to box height, or 123% */
+.seed-managment-title {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 43px;
+  /* identical to box height, or 123% */
 
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 
-/* 111 */
+  /* 111 */
 
-background: linear-gradient(95.25deg, #FF9900 2.44%, #FF6716 98.67%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-text-fill-color: transparent;
-@media screen and (max-width: $sm) {
-  font-size: 25px;
-  
-}
+  background: linear-gradient(95.25deg, #ff9900 2.44%, #ff6716 98.67%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  @media screen and (max-width: $sm) {
+    font-size: 25px;
+  }
 }
 .game-container {
   .shapes-group {
