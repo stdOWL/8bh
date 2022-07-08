@@ -272,10 +272,12 @@ export default function Game() {
   useEffect(() => {
     let selectedCurrency = currencies.find((s) => s.code === selectedAssetCode);
     if (selectedCurrency) {
-      setWager(parseFloat(selectedCurrency.min_wager).toLocaleString("en", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 8,
-      }));
+      setWager(
+        parseFloat(selectedCurrency.min_wager).toLocaleString("en", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 8,
+        })
+      );
     }
   }, [selectedAssetCode]);
 
@@ -485,10 +487,12 @@ export default function Game() {
           setSeedInfo((d) => {
             return { ...d, ...diceInfo.seedInfo };
           });
-          setWager(parseFloat(diceInfo.lastBet.wager).toLocaleString("en", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 8,
-          }));
+          setWager(
+            parseFloat(diceInfo.lastBet.wager).toLocaleString("en", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 8,
+            })
+          );
           setTargetMultiplier(parseFloat(diceInfo.lastBet.target) / 100);
           setGameResult(
             (diceInfo.lastBet.multiplier / 100).toLocaleString("en", {
@@ -671,8 +675,9 @@ export default function Game() {
                   <div
                     key={index}
                     onClick={() => handleActivePlay(tab.name)}
-                    className={`tab ${searchPlay === tab.name ? "active" : null
-                      }`}
+                    className={`tab ${
+                      searchPlay === tab.name ? "active" : null
+                    }`}
                   >
                     {tab.label}
                   </div>
@@ -682,8 +687,9 @@ export default function Game() {
                 <div className="d-flex row-gap pb-2 icon-wrapper">
                   <div className="position-relative pointer">
                     <div
-                      className={`position-absolute hover-tip ${activeHover === "seed" ? "block" : "d-none"
-                        }`}
+                      className={`position-absolute hover-tip ${
+                        activeHover === "seed" ? "block" : "d-none"
+                      }`}
                     >
                       Seed Managment
                     </div>
@@ -698,8 +704,9 @@ export default function Game() {
                   </div>
                   <div className="position-relative pointer">
                     <div
-                      className={`position-absolute hover-tip ${activeHover === "disable" ? "block" : "d-none"
-                        }`}
+                      className={`position-absolute hover-tip ${
+                        activeHover === "disable" ? "block" : "d-none"
+                      }`}
                     >
                       Disable Animation
                     </div>
@@ -710,14 +717,17 @@ export default function Game() {
                       className="icon"
                       onMouseEnter={() => mouseIn("disable")}
                       onMouseLeave={mouseOut}
-                      src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                      src={
+                        animationEnabled ? AnimationEnabled : AnimationDisabled
+                      }
                       alt=""
                     />
                   </div>
                   <div className="position-relative pointer">
                     <div
-                      className={`position-absolute hover-tip ${activeHover === "reset" ? "block" : "d-none"
-                        }`}
+                      className={`position-absolute hover-tip ${
+                        activeHover === "reset" ? "block" : "d-none"
+                      }`}
                     >
                       Reset Statistics
                     </div>
@@ -1009,80 +1019,79 @@ export default function Game() {
                 </div>
 
                 <div className="d-flex">
-                <div className="mainlabel" >
-                  <Row>
-                    <Col  >
-                      <div>
-                        <div className="label win">Win Chance</div>
-                        <div className="win2"> 4%</div>
-                      </div>
-                    </Col>
-                    <Col >
-                      <div>
-                        <div className="label win">Max Profit</div>
-                        <div className="icons win2">
-                          <img style={{ width: '18px', marginRight: '8px' }}
-                            src={
-                              "/currencies/" +
-                              (selectedAssetCode || "btc") +
-                              ".png"
-                            }
-                            alt="selectedAssetCode"
-                          />19.28
+                  <div className="mainlabel">
+                    <Row className="seven-cols">
+                      <Col md={1}>
+                        <div>
+                          <div className="label win">Win Chance</div>
+                          <div className="win2"> 4%</div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col >
-                      <div>
-                        <div className="label win">Wagered</div>
-                        <div className="win2"> 9 bits</div>
-                      </div>
-                    </Col>
-                    </Row>
-                    <Row>
-                    <Col >
-                      <div>
-                        <div className="label win">Profit</div>
-                        <div className="icons win2">
-                          <img style={{ width: '18px', marginRight: '8px' }}
-                            src={
-                              "/currencies/" +
-                              (selectedAssetCode || "btc") +
-                              ".png"
-                            }
-                            alt="selectedAssetCode"
-                          />1.04
+                      </Col>
+                      <Col md={1}>
+                        <div>
+                          <div className="label win">Max Profit</div>
+                          <div className="icons win2">
+                            <img
+                              style={{ width: "18px", marginRight: "8px" }}
+                              src={
+                                "/currencies/" +
+                                (selectedAssetCode || "btc") +
+                                ".png"
+                              }
+                              alt="selectedAssetCode"
+                            />
+                            19.28
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                    <Col >
-                      <div>
-                        <div className="label win">Win Rate</div>
-                        <div className="win2"> 20.52%</div>
-                      </div>
-                    </Col>
-                    <Col >
-                      <div>
-                        <div className="label win">Luck</div>
-                        <div className="win2"> 20.52% </div>
-                      </div>
-                    </Col>
+                      </Col>
+                      <Col md={1}>
+                        <div>
+                          <div className="label win">Wagered</div>
+                          <div className="win2"> 9 bits</div>
+                        </div>
+                      </Col>
+                      <Col md={1}>
+                        <div>
+                          <div className="label win">Profit</div>
+                          <div className="icons win2">
+                            <img
+                              style={{ width: "18px", marginRight: "8px" }}
+                              src={
+                                "/currencies/" +
+                                (selectedAssetCode || "btc") +
+                                ".png"
+                              }
+                              alt="selectedAssetCode"
+                            />
+                            1.04
+                          </div>
+                        </div>
+                      </Col>
+                      <Col md={1}>
+                        <div>
+                          <div className="label win">Win Rate</div>
+                          <div className="win2"> 20.52%</div>
+                        </div>
+                      </Col>
+                      <Col md={1}>
+                        <div>
+                          <div className="label win">Luck</div>
+                          <div className="win2"> 20.52% </div>
+                        </div>
+                      </Col>
+                      <Col md={1}>
+                        <div className="bet">
+                          <div className="label win">Bets</div>
+                          <div className="win2"> 9 </div>
+                        </div>
+                      </Col>
                     </Row>
-                    <Row>
-                    <Col >
-                      <div className="bet">
-                        <div className="label win">Bets</div>
-                        <div className="win2"> 9 </div>
-                      </div>
-                    </Col>
-                  </Row>
                   </div>
-
                 </div>
 
                 <Row className="roll mb-3 d-flex d-md-none">
                   <Col lg={8} xl={6} className="col-10">
-                    <div className="input-group-append" >
+                    <div className="input-group-append">
                       <button
                         disabled={rollError || busy}
                         onClick={rollDice}
@@ -1106,7 +1115,7 @@ export default function Game() {
                         className="btn btn-outline-secondary"
                         type="button"
                         sx={{
-                          width: '20%'
+                          width: "20%",
                         }}
                       >
                         Skip
@@ -1177,8 +1186,8 @@ export default function Game() {
                         {(statistics.game_count === 0
                           ? 0
                           : (parseFloat(statistics.win_count) /
-                            parseFloat(statistics.game_count)) *
-                          100
+                              parseFloat(statistics.game_count)) *
+                            100
                         ).toFixed(2)}{" "}
                         %
                       </div>
