@@ -4,11 +4,28 @@
 .row-gap {
   column-gap: 20px;
 }
-.win{
-  margin-right: 11rem;
+.mainlabel{
+  width:100%;
+  display: flex;
   @media screen and (max-width:$sm){
-    margin-right: 6rem;
+    flex-direction: column;
   }
+}
+.bet{
+  @media screen and (max-width:$sm){
+    display: none !important;
+  }
+}
+.win{
+  font-size: 13px !important;
+  width:110px;
+  @media screen and (max-width:$sm){
+    width:77px;
+  }
+  
+}
+.win2{
+  font-size: 13px;
 }
 .icon-wraps2{
  

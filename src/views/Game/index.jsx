@@ -1009,23 +1009,75 @@ export default function Game() {
                 </div>
 
                 <div className="d-flex">
-                  <div>
-                    <div className="label win">Win Chance</div>
-                    <div> 4%</div>
+                <div className="mainlabel" >
+                  <Row>
+                    <Col  >
+                      <div>
+                        <div className="label win">Win Chance</div>
+                        <div className="win2"> 4%</div>
+                      </div>
+                    </Col>
+                    <Col >
+                      <div>
+                        <div className="label win">Max Profit</div>
+                        <div className="icons win2">
+                          <img style={{ width: '18px', marginRight: '8px' }}
+                            src={
+                              "/currencies/" +
+                              (selectedAssetCode || "btc") +
+                              ".png"
+                            }
+                            alt="selectedAssetCode"
+                          />19.28
+                        </div>
+                      </div>
+                    </Col>
+                    <Col >
+                      <div>
+                        <div className="label win">Wagered</div>
+                        <div className="win2"> 9 bits</div>
+                      </div>
+                    </Col>
+                    </Row>
+                    <Row>
+                    <Col >
+                      <div>
+                        <div className="label win">Profit</div>
+                        <div className="icons win2">
+                          <img style={{ width: '18px', marginRight: '8px' }}
+                            src={
+                              "/currencies/" +
+                              (selectedAssetCode || "btc") +
+                              ".png"
+                            }
+                            alt="selectedAssetCode"
+                          />1.04
+                        </div>
+                      </div>
+                    </Col>
+                    <Col >
+                      <div>
+                        <div className="label win">Win Rate</div>
+                        <div className="win2"> 20.52%</div>
+                      </div>
+                    </Col>
+                    <Col >
+                      <div>
+                        <div className="label win">Luck</div>
+                        <div className="win2"> 20.52% </div>
+                      </div>
+                    </Col>
+                    </Row>
+                    <Row>
+                    <Col >
+                      <div className="bet">
+                        <div className="label win">Bets</div>
+                        <div className="win2"> 9 </div>
+                      </div>
+                    </Col>
+                  </Row>
                   </div>
-                  <div>
-                    <div className="label">Max Profit</div>
-                    <div className="icons">
-                      <img style={{ width: '22px', marginRight: '8px' }}
-                        src={
-                          "/currencies/" +
-                          (selectedAssetCode || "btc") +
-                          ".png"
-                        }
-                        alt="selectedAssetCode"
-                      />19.28
-                    </div>
-                  </div>
+
                 </div>
 
                 <Row className="roll mb-3 d-flex d-md-none">

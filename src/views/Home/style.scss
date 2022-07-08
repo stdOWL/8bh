@@ -11,8 +11,19 @@
     }
 }
 .countdown-lose{
+    @media screen and (max-width:$sm){
+       margin: 0 !important;
+      }
     span{
         color: #ec644b;
+        @media screen and (max-width:$sm){
+            font-size: 52px;
+           }
+    }
+    h1{
+        @media screen and (max-width:$sm){
+            margin: 0 !important;
+           }
     }
 }
 .countdown-win{
