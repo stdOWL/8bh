@@ -51,6 +51,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { useImmer } from "use-immer";
+import AffiliateModel from "../../components/AffiliateModel";
 
 const SCRIPT_MODE_EDIT = 0;
 const SCRIPT_MODE_START = 1;
@@ -1180,6 +1181,7 @@ export default function Game() {
                     </div>
                   </Col>
                 </Row>
+
                 <Row className="roll d-none d-md-flex">
                   <Col lg={8} xl={6} className="col-10">
                     <div className="input-group-append row">
@@ -1263,6 +1265,7 @@ export default function Game() {
           <Rollers />
         </div>
       </Layout>
+      <AffiliateModel />
     </div>
   );
 }
