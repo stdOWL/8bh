@@ -90,6 +90,12 @@
       cursor: pointer;
       span {
         margin-left: 10px;
+        @media (min-width: 320px) and (max-width: 425.7px) {
+          display: none;
+        }
+        @media screen and (min-width: 426px) {
+          display: block;
+        }
       }
     }
   }

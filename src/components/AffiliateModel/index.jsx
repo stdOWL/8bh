@@ -20,13 +20,13 @@ function Index(props) {
           <div className="orange-gradient-text heading">Affiliate Panel</div>
           <div className="copy-url">
             <Row className="align-items-center">
-              <Col sm={12} md={9} lg={9}>
+              <Col xs={9} sm={9} md={8} lg={9}>
                 <div className="copy-url-left">
                   <h4>Your Referral Link</h4>
                   <a href="#">https://test.com/test</a>
                 </div>
               </Col>
-              <Col sm={12} md={3} lg={3}>
+              <Col xs={3} sm={3} md={4} lg={3}>
                 <div className="copy-url-right">
                   <ContentCopyIcon />
                   <span>Copy Url</span>
