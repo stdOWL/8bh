@@ -122,6 +122,16 @@
     font-weight: 100;
   }
 }
+.reset-statisticst-lg {
+  left: unset;
+  right: 0;
+}
+.hover-tip-2 {
+  left: 105%;
+  top: 0;
+  z-index: 999999;
+  margin-left: 10px;
+}
 .input-group-append {
   display: flex;
   margin-top: 3rem !important;

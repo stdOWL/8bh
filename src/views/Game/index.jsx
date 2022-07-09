@@ -672,7 +672,7 @@ export default function Game() {
           <div className="d-flex row-gap pb-2 gap-2 icon-wrapper">
             <div className="position-relative pointer">
               <div
-                className={`position-absolute hover-tip ${
+                className={`position-absolute hover-tip hover-tip-2 ${
                   activeHover === "seed" ? "block" : "d-none"
                 }`}
               >
@@ -689,7 +689,7 @@ export default function Game() {
             </div>
             <div className="position-relative pointer">
               <div
-                className={`position-absolute hover-tip ${
+                className={`position-absolute hover-tip hover-tip-2 ${
                   activeHover === "disable" ? "block" : "d-none"
                 }`}
               >
@@ -708,7 +708,7 @@ export default function Game() {
             </div>
             <div className="position-relative pointer">
               <div
-                className={`position-absolute hover-tip ${
+                className={`position-absolute hover-tip hover-tip-2 ${
                   activeHover === "reset" ? "block" : "d-none"
                 }`}
               >
@@ -783,7 +783,7 @@ export default function Game() {
                   </div>
                   <div className="position-relative pointer">
                     <div
-                      className={`position-absolute hover-tip ${
+                      className={`position-absolute hover-tip reset-statisticst-lg ${
                         activeHover === "reset" ? "block" : "d-none"
                       }`}
                     >
