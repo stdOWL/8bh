@@ -670,6 +670,28 @@ export default function Game() {
         </Row>
         <div className="icon-wraps">
           <div className="d-flex row-gap pb-2 gap-2 icon-wrapper">
+          <div className="position-relative pointer">
+              <div
+                className={`position-absolute hover-tip hover-tip-2 ${
+                  activeHover === "disable" ? "block" : "d-none"
+                }`}
+              >
+               {animationEnabled
+                          ? "Disable Animation"
+                          : "Enable Animation"}{" "}
+                {/* Disable Animation */}
+              </div>
+              <img
+                onClick={() => {
+                  setAnimationEnabled(!animationEnabled);
+                }}
+                className="icon"
+                onMouseEnter={() => mouseIn("disable")}
+                onMouseLeave={mouseOut}
+                src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                alt=""
+              />
+            </div>
             <div className="position-relative pointer">
               <div
                 className={`position-absolute hover-tip hover-tip-2 ${
@@ -687,25 +709,7 @@ export default function Game() {
                 alt=""
               />
             </div>
-            <div className="position-relative pointer">
-              <div
-                className={`position-absolute hover-tip hover-tip-2 ${
-                  activeHover === "disable" ? "block" : "d-none"
-                }`}
-              >
-                Disable Animation
-              </div>
-              <img
-                onClick={() => {
-                  setAnimationEnabled(!animationEnabled);
-                }}
-                className="icon"
-                onMouseEnter={() => mouseIn("disable")}
-                onMouseLeave={mouseOut}
-                src={animationEnabled ? AnimationEnabled : AnimationDisabled}
-                alt=""
-              />
-            </div>
+            
             <div className="position-relative pointer">
               <div
                 className={`position-absolute hover-tip hover-tip-2 ${
@@ -723,6 +727,7 @@ export default function Game() {
                 alt=""
               />
             </div>
+            
           </div>
         </div>
         <div className="game">
@@ -766,7 +771,10 @@ export default function Game() {
                         activeHover === "disable" ? "block" : "d-none"
                       }`}
                     >
-                      Disable Animation
+                     {animationEnabled
+                          ? "Disable Animation"
+                          : "Enable Animation"}{" "}
+                      {/* Disable Animation */}
                     </div>
                     <img
                       onClick={() => {
@@ -781,18 +789,7 @@ export default function Game() {
                       alt=""
                     />
                   </div>
-                  <img
-                    onClick={() => {
-                      setAnimationEnabled(!animationEnabled);
-                    }}
-                    className="icon"
-                    onMouseEnter={() => mouseIn("disable")}
-                    onMouseLeave={mouseOut}
-                    src={animationEnabled ? AnimationEnabled : AnimationDisabled}
-                    alt=""
-                  />
-                </div>
-                <div className="position-relative pointer">
+                  <div className="position-relative pointer">
                   <div
                     className={`position-absolute hover-tip ${
                       activeHover === "reset" ? "block" : "d-none"
@@ -800,7 +797,18 @@ export default function Game() {
                   >
                     Reset Stats
                   </div>
+                  <img
+                    onClick={resetStatistics}
+                    className="icon"
+                    onMouseEnter={() => mouseIn("reset")}
+                    onMouseLeave={mouseOut}
+                    src={Refresh}
+                    alt=""
+                  />
                 </div>
+                
+                </div>
+                
               </div>
             </ScrollContainer>
             <TipModel />
@@ -993,8 +1001,8 @@ export default function Game() {
                         }}
                       >
                         {animationEnabled
-                          ? "Disable Animations"
-                          : "Enable Animations"}{" "}
+                          ? "Disable Animation"
+                          : "Enable Animation"}{" "}
                       </Button>
                     </ButtonGroup>
                   </Row>
