@@ -781,22 +781,24 @@ export default function Game() {
                       alt=""
                     />
                   </div>
-                  <div className="position-relative pointer">
-                    <div
-                      className={`position-absolute hover-tip reset-statisticst-lg ${
-                        activeHover === "reset" ? "block" : "d-none"
-                      }`}
-                    >
-                      Reset Statistics
-                    </div>
-                    <img
-                      onClick={resetStatistics}
-                      className="icon"
-                      onMouseEnter={() => mouseIn("reset")}
-                      onMouseLeave={mouseOut}
-                      src={Refresh}
-                      alt=""
-                    />
+                  <img
+                    onClick={() => {
+                      setAnimationEnabled(!animationEnabled);
+                    }}
+                    className="icon"
+                    onMouseEnter={() => mouseIn("disable")}
+                    onMouseLeave={mouseOut}
+                    src={animationEnabled ? AnimationEnabled : AnimationDisabled}
+                    alt=""
+                  />
+                </div>
+                <div className="position-relative pointer">
+                  <div
+                    className={`position-absolute hover-tip ${
+                      activeHover === "reset" ? "block" : "d-none"
+                    }`}
+                  >
+                    Reset Stats
                   </div>
                 </div>
               </div>
@@ -979,7 +981,7 @@ export default function Game() {
                         }}
                         onClick={resetStatistics}
                       >
-                        Reset Statistics
+                        Reset Stats
                       </Button>
                       <Button
                         sx={{
@@ -1002,6 +1004,7 @@ export default function Game() {
                     <div className="label">Wager</div>
                     <div className="custom-input">
                       <input
+                        pattern="[0-9]*"
                         type="number"
                         value={wager}
                         onChange={({ target }) =>
@@ -1040,6 +1043,7 @@ export default function Game() {
                     <div className="label">Target Multiplier</div>
                     <input
                       type="number"
+                      pattern="[0-9]*"
                       value={targetMultiplier}
                       onChange={({ target }) =>
                         setTargetMultiplier(target.value)
