@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import { Modal, Row, Col, Table } from "react-bootstrap";
+import { Modal, Row, Col, Table, Pagination } from "react-bootstrap";
 import { useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 function Index(props) {
@@ -64,6 +64,20 @@ function Index(props) {
                   </tr>
                 </tbody>
               </Table>
+              <Row>
+                <Col className="model-pagination">
+                  <Pagination>
+                    <Pagination.First />
+                    <Pagination.Prev />
+                    <Pagination.Item>{1}</Pagination.Item>
+                    <Pagination.Item>{2}</Pagination.Item>
+                    <Pagination.Item active>{3}</Pagination.Item>
+                    <Pagination.Item>{4}</Pagination.Item>
+                    <Pagination.Next />
+                    <Pagination.Last />
+                  </Pagination>
+                </Col>
+              </Row>
             </Row>
           </div>
         </div>

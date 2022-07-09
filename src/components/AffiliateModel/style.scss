@@ -14,7 +14,7 @@
     font-weight: 500;
   }
   .normal-text {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 400;
     margin: 10px 0;
   }
@@ -95,6 +95,29 @@
         }
         @media screen and (min-width: 426px) {
           display: block;
+        }
+      }
+    }
+  }
+  .model-pagination {
+    display: flex;
+    justify-content: flex-end;
+    ul {
+      li.active {
+        span {
+          background: #ff6316;
+          border-color: #ff6316;
+          color: #fff;
+        }
+      }
+      li {
+        a {
+          background: transparent;
+          border-color: rgb(255, 99, 22);
+          color: #ff6316;
+          &:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 99, 22, 0.251);
+          }
         }
       }
     }
