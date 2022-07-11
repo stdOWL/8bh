@@ -2,8 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { api, notify } from "../../util";
 import TextField from "@mui/material/TextField";
+import { useCountUp } from "react-countup";
 
-export default function ScriptRunner({ code }) {
+export default function ScriptRunner({
+  code,
+  gameResult,
+  setGameResult,
+  animationEnabled,
+  setPreviousMultiplier,
+}) {
   const iframe = useRef();
   console.log("ScriptRunner", code);
   const [logs, setLogs] = useState("");
@@ -48,6 +55,7 @@ export default function ScriptRunner({ code }) {
     };
     fetchClientSeed();
   };
+
   const bet = (wager, target, requestId) => {
     const loadBets = async () => {
       try {
@@ -59,7 +67,19 @@ export default function ScriptRunner({ code }) {
         if (response.error) {
           setLogs(logs + "\n" + response.error);
         } else {
-          sendResponse(requestId, response.bet);
+          setPreviousMultiplier(gameResult);
+
+          setGameResult(
+            (response.bet.multiplier / 100).toLocaleString("en", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          );
+          setTimeout(() => {
+            sendResponse(requestId, response.bet);
+          }, animationEnabled ? 1100 : 100);
+
+
         }
       } catch (err) {
         notify.error(err.response ? err.response.data : err.message);
@@ -78,7 +98,7 @@ export default function ScriptRunner({ code }) {
           sendResponse(requestId, {
             server_seed_hash: response.serverSeedHash,
             prev_server_seed: response.previousServerSeed,
-            prev_client_seed: response.previousClientSeed
+            prev_client_seed: response.previousClientSeed,
           });
         }
       } catch (err) {

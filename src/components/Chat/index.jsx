@@ -108,7 +108,7 @@ function Chat() {
             <div key={msg.id} className="message">
               <div className="info">
                 <span
-                  className="username playerLink"
+                  className={`username playerLink username-${msg.role ? msg.role : 'USER'}`}
                   onClick={() => navigate(`/Player/${msg.username}`)}
                 >
                   {msg.username}
@@ -117,7 +117,7 @@ function Chat() {
                   <Moment date={msg.createdAt} fromNow />
                 </span>
               </div>
-              <div className="body">
+              <div className={`body body-${msg.role ? msg.role : 'USER'}`}>
                 {msg.message.split(" ").map((word, index) => {
                   if (word.startsWith("@"))
                     return (

@@ -51,6 +51,9 @@
                         font-size: 1rem;
                     }
                 }
+                .username-ADMIN{
+                    color: #ff9900;
+                }
                 .time {
                     font-weight: 400;
                     font-size: 1.1rem;
@@ -75,6 +78,10 @@
                     color: $orange;
                     cursor: pointer;
                 }
+            }
+            .body-ADMIN{
+                background-color: #f8f9fa;
+                color: black;
             }
         }
     }

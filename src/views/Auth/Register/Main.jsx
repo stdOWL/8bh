@@ -13,6 +13,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useLayout } from "../../../components/Layout/context/layoutContext";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 export default function Main({ promoCode }) {
   const navigate = useNavigate();
   const [tosOpened, setTosOpened] = useState(false);
@@ -20,9 +21,14 @@ export default function Main({ promoCode }) {
     setTosOpened(false);
   };
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
+  
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const { setRegisterModalShow } = useLayout();
 
@@ -33,7 +39,7 @@ export default function Main({ promoCode }) {
         const { tokens, user } = await api.post("/auth/register", {
           username,
           email,
-          password,
+          password:password1,
           promoCode,
         });
         token.setUser({ tokens, user });
@@ -289,39 +295,47 @@ export default function Main({ promoCode }) {
             <div className="label">
               Password<span className="require-field">*</span>
             </div>
-            
-            
+
             <InputGroup>
-            <FormControl
-            className="register-inputs"
-              type="password"
-              placeholder="Enter password"
-              value={password}
-              onInput={(e) => setPassword(e.target.value)}
-            />
-            <Button className="visible-button" variant="outline-secondary" id="button-addon2">
-              <VisibilityIcon></VisibilityIcon>
-            </Button>
-          </InputGroup>
+              <FormControl
+                className="register-inputs"
+                type={showPassword1 ? 'text' : 'password'}
+                placeholder="Enter password"
+                value={password1}
+                onInput={(e) => setPassword1(e.target.value)}
+              />
+              <Button
+                className="visible-button"
+                variant="outline-secondary"
+                id="button-addon2"
+                onClick={(e) => setShowPassword1(!showPassword1)}
+              >
+                {showPassword1 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </Button>
+            </InputGroup>
           </div>
-          
+
           <div className="form-group">
             <div className="label">
               Confirm Password<span className="require-field">*</span>
             </div>
             <InputGroup>
-            <FormControl
-            className="register-inputs"
-              type="password"
-              placeholder="Re-enter password"
-              value={password}
-              onInput={(e) => setPassword(e.target.value)}
-            />
-            <Button className="visible-button" variant="outline-secondary" id="button-addon2">
-              <VisibilityIcon></VisibilityIcon>
-            </Button>
-          </InputGroup>
-
+              <FormControl
+                className="register-inputs"
+                type={showPassword2 ? 'text' : 'password'}
+                placeholder="Re-enter password"
+                value={password2}
+                onInput={(e) => setPassword2(e.target.value)}
+              />
+              <Button
+                className="visible-button"
+                variant="outline-secondary"
+                id="button-addon2"
+                onClick={(e) => setShowPassword2(!showPassword2)}
+              >
+                {showPassword2 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+              </Button>
+            </InputGroup>
           </div>
           {promoCode && (
             <div className="form-group">

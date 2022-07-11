@@ -2,13 +2,21 @@
 @import "../../../scss/variables.scss";
 
 .game-title {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+                                  
     padding: 1rem 0;
     @media (max-width: $md) {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
     }
     @media screen and (max-width: $sm){
-        margin-bottom: 40px;
+        margin-bottom: 20px;
     }
 
     .box {

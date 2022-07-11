@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Col, Row, Image } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import ScrollContainer from "react-indiana-drag-scroll";
@@ -13,6 +13,7 @@ import ScriptRunner from "../../components/ScriptRunner";
 import SeedManagement from "../../assets/imgs/seed management.png";
 import AnimationDisabled from "../../assets/imgs/animation_disabled.png";
 import AnimationEnabled from "../../assets/imgs/animation_enabled.png";
+import { DebounceInput } from "react-debounce-input";
 
 import Refresh from "../../assets/imgs/refresh.png";
 import "./style.scss";
@@ -56,7 +57,39 @@ import AffiliateModel from "../../components/AffiliateModel";
 const SCRIPT_MODE_EDIT = 0;
 const SCRIPT_MODE_START = 1;
 const SCRIPT_MODE_RUN = 2;
+function useEventListener(eventName, handler, element = window) {
+  // Create a ref that stores handler
+  const savedHandler = useRef();
 
+  // Update ref.current value if handler changes.
+  // This allows our effect below to always get latest handler ...
+  // ... without us needing to pass it in effect deps array ...
+  // ... and potentially cause effect to re-run every render.
+  useEffect(() => {
+    savedHandler.current = handler;
+  }, [handler]);
+
+  useEffect(
+    () => {
+      // Make sure element supports addEventListener
+      // On
+      const isSupported = element && element.addEventListener;
+      if (!isSupported) return;
+
+      // Create event listener that calls handler function stored in ref
+      const eventListener = (event) => savedHandler.current(event);
+
+      // Add event listener
+      element.addEventListener(eventName, eventListener);
+
+      // Remove event listener on cleanup
+      return () => {
+        element.removeEventListener(eventName, eventListener);
+      };
+    },
+    [eventName, element] // Re-run if eventName or element changes
+  );
+}
 function useQuery() {
   const { search } = useLocation();
 
@@ -168,6 +201,7 @@ export default function Game() {
   const [rollError, setRollError] = useState(null);
 
   const [animationEnabled, setAnimationEnabled] = useState(true);
+  const [hotkeyEnabled, setHotkeyEnabled] = useState(true);
 
   const [statistics, setStatistics] = useState({
     wagers: 0,
@@ -218,6 +252,26 @@ export default function Game() {
   `
   );
 
+  useEventListener("keydown", (event) => {
+    switch (event.keyCode) {
+      case 32:
+        // space
+        if (hotkeyEnabled) {
+          var elem = event.target.nodeName;
+          debugger;
+          if (elem !== "TEXTAREA" && elem !== "INPUT") {
+            if (!busy) rollDice();
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+          }
+        }
+
+        break;
+      default:
+        break;
+    }
+  });
   useEffect(() => {
     if (Number.isNaN(wager)) setRollError("Wager invalid!");
     else if (wager <= 0) setRollError("Wager too low!");
@@ -344,7 +398,7 @@ export default function Game() {
       } catch (err) {
         notify.error(err.response ? err.response.data : err.message);
       } finally {
-        setBusy(false);
+        if (!animationEnabled) setBusy(false);
       }
     };
     setBusy(true);
@@ -670,15 +724,13 @@ export default function Game() {
         </Row>
         <div className="icon-wraps">
           <div className="d-flex row-gap pb-2 gap-2 icon-wrapper">
-          <div className="position-relative pointer">
+            <div className="position-relative pointer">
               <div
                 className={`position-absolute hover-tip hover-tip-2 ${
                   activeHover === "disable" ? "block" : "d-none"
                 }`}
               >
-               {animationEnabled
-                          ? "Disable Animation"
-                          : "Enable Animation"}{" "}
+                {animationEnabled ? "Disable Animation" : "Enable Animation"}{" "}
                 {/* Disable Animation */}
               </div>
               <img
@@ -709,7 +761,7 @@ export default function Game() {
                 alt=""
               />
             </div>
-            
+
             <div className="position-relative pointer">
               <div
                 className={`position-absolute hover-tip hover-tip-2 ${
@@ -727,7 +779,6 @@ export default function Game() {
                 alt=""
               />
             </div>
-            
           </div>
         </div>
         <div className="game">
@@ -771,9 +822,9 @@ export default function Game() {
                         activeHover === "disable" ? "block" : "d-none"
                       }`}
                     >
-                     {animationEnabled
-                          ? "Disable Animation"
-                          : "Enable Animation"}{" "}
+                      {animationEnabled
+                        ? "Disable Animation"
+                        : "Enable Animation"}{" "}
                       {/* Disable Animation */}
                     </div>
                     <img
@@ -790,25 +841,23 @@ export default function Game() {
                     />
                   </div>
                   <div className="position-relative pointer">
-                  <div
-                    className={`position-absolute hover-tip ${
-                      activeHover === "reset" ? "block" : "d-none"
-                    }`}
-                  >
-                    Reset Stats
+                    <div
+                      className={`position-absolute hover-tip ${
+                        activeHover === "reset" ? "block" : "d-none"
+                      }`}
+                    >
+                      Reset Stats
+                    </div>
+                    <img
+                      onClick={resetStatistics}
+                      className="icon"
+                      onMouseEnter={() => mouseIn("reset")}
+                      onMouseLeave={mouseOut}
+                      src={Refresh}
+                      alt=""
+                    />
                   </div>
-                  <img
-                    onClick={resetStatistics}
-                    className="icon"
-                    onMouseEnter={() => mouseIn("reset")}
-                    onMouseLeave={mouseOut}
-                    src={Refresh}
-                    alt=""
-                  />
                 </div>
-                
-                </div>
-                
               </div>
             </ScrollContainer>
             <TipModel />
@@ -918,7 +967,13 @@ export default function Game() {
                       />
                     )}
                     {scriptState === SCRIPT_MODE_RUN && (
-                      <ScriptRunner code={code}></ScriptRunner>
+                      <ScriptRunner
+                        gameResult={gameResult}
+                        setPreviousMultiplier={setPreviousMultiplier}
+                        animationEnabled={animationEnabled}
+                        setGameResult={setGameResult}
+                        code={code}
+                      ></ScriptRunner>
                     )}
                   </div>
                 </div>
@@ -1011,14 +1066,16 @@ export default function Game() {
                   <div className="form-group">
                     <div className="label">Wager</div>
                     <div className="custom-input">
-                      <input
+                      <DebounceInput
                         pattern="[0-9]*"
                         type="number"
                         value={wager}
+                        debounceTimeout={1000}
                         onChange={({ target }) =>
                           setWager(validateWager(target.value))
                         }
                       />
+
                       <div className="icons">
                         <Image
                           src={
@@ -1088,80 +1145,9 @@ export default function Game() {
                   </div>
                 </div>
 
-                <div className="d-flex">
-                  <div className="mainlabel">
-                    <Row className="seven-cols">
-                      <Col md={1}>
-                        <div>
-                          <div className="label win">Win Chance</div>
-                          <div className="win2"> 4%</div>
-                        </div>
-                      </Col>
-                      <Col md={1}>
-                        <div>
-                          <div className="label win">Max Profit</div>
-                          <div className="icons win2">
-                            <img
-                              style={{ width: "18px", marginRight: "8px" }}
-                              src={
-                                "/currencies/" +
-                                (selectedAssetCode || "btc") +
-                                ".png"
-                              }
-                              alt="selectedAssetCode"
-                            />
-                            19.28
-                          </div>
-                        </div>
-                      </Col>
-                      <Col md={1}>
-                        <div>
-                          <div className="label win">Wagered</div>
-                          <div className="win2"> 9 bits</div>
-                        </div>
-                      </Col>
-                      <Col md={1}>
-                        <div>
-                          <div className="label win">Profit</div>
-                          <div className="icons win2">
-                            <img
-                              style={{ width: "18px", marginRight: "8px" }}
-                              src={
-                                "/currencies/" +
-                                (selectedAssetCode || "btc") +
-                                ".png"
-                              }
-                              alt="selectedAssetCode"
-                            />
-                            1.04
-                          </div>
-                        </div>
-                      </Col>
-                      <Col md={1}>
-                        <div>
-                          <div className="label win">Win Rate</div>
-                          <div className="win2"> 20.52%</div>
-                        </div>
-                      </Col>
-                      <Col md={1}>
-                        <div>
-                          <div className="label win">Luck</div>
-                          <div className="win2"> 20.52% </div>
-                        </div>
-                      </Col>
-                      <Col md={1}>
-                        <div className="bet">
-                          <div className="label win">Bets</div>
-                          <div className="win2"> 9 </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
-                </div>
-
                 <Row className="roll mb-3 d-flex d-md-none">
                   <Col lg={8} xl={6} className="col-10">
-                    <div className="input-group-append">
+                    <div className="input-group-append m-0">
                       <button
                         disabled={rollError || busy}
                         onClick={rollDice}
@@ -1184,7 +1170,7 @@ export default function Game() {
                         onClick={skipBet}
                         className="btn btn-outline-secondary"
                         type="button"
-                        sx={{
+                        style={{
                           width: "20%",
                         }}
                       >
@@ -1228,30 +1214,30 @@ export default function Game() {
 
                 {LOGGED_IN && (
                   <Row className="info">
-                    <Col md={5} xl={2} className="col-6 form-group">
+                    <Col md={4} xl={2} className="col-6 form-group">
                       <div className="label">Win Chance</div>
                       <div className="label values">{winChance}%</div>
                     </Col>
-                    <Col md={7} xl={2} className="col-6 form-group">
+                    <Col md={4} xl={2} className="col-6 form-group">
                       <div className="label">Max Profit</div>
                       <div className="label values profit">
                         <img src={btcIcon} />
                         1.928
                       </div>
                     </Col>
-                    <Col md={5} xl={2} className="col-6 form-group">
+                    <Col md={4} xl={2} className="col-6 form-group">
                       <div className="label">Wagers</div>
                       <div className="label values">
                         {parseFloat(statistics.wagers).toFixed(2)} $
                       </div>
                     </Col>
-                    <Col md={5} xl={2} className="col-6 form-group">
+                    <Col md={4} xl={2} className="col-6 form-group">
                       <div className="label">Profit</div>
                       <div className="label values">
                         {parseFloat(statistics.profit).toFixed(2)} $
                       </div>
                     </Col>
-                    <Col md={5} xl={2} className="col-6 form-group">
+                    <Col md={4} xl={2} className="col-6 form-group">
                       <div className="label">Win Rate</div>
                       <div className="label values">
                         {(statistics.game_count === 0
@@ -1263,7 +1249,7 @@ export default function Game() {
                         %
                       </div>
                     </Col>
-                    <Col md={5} xl={2} className="col-6 form-group">
+                    <Col md={4} xl={2} className="col-6 form-group">
                       <div className="label">Luck</div>
                       <div className="label values">
                         {parseFloat(statistics.win_count).toFixed(2)} %
@@ -1277,7 +1263,6 @@ export default function Game() {
           <Rollers />
         </div>
       </Layout>
-      <AffiliateModel />
     </div>
   );
 }
